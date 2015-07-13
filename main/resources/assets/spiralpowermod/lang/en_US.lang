@@ -1,0 +1,42 @@
+item.coreDrill.name=Core Drill
+item.spiralDroplet.name=Raw Spiral Power
+item.spiralPowerChunk.name=Spiral Power Condensed Chunk
+item.yokoBullet.name=Bullet
+
+item.spiralDrill.name=Spiral Drill
+item.kamKatana.name=Kamina's Nodachi
+item.simonKatana.name=Simon's Katana
+item.viralCleaver.name=Viral's Cleaver
+
+item.yokoRifle.name=Yoko's Rifle
+
+item.kamGlasses.name=Kamina's Glasses
+item.kamChest.name=Kamina's Cape
+item.kamLegs.name=Kamina's Pants
+item.kamBoots.name=Kamina's Boots
+
+item.diggerGoggles.name=Digger Goggles
+item.diggerChest.name=Digger Jacket
+item.diggerLegs.name=Digger Pants
+item.diggerBoots.name=Digger Boots
+
+item.simonGlasses.name=Simon's Glasses
+item.simonChest.name=Simon's Wraps
+item.simonLegs.name=Simon's Pants
+item.simonBoots.name=Simon's Boots
+
+tile.spiralBlock.name=Condensed Block of Spiral Power
+
+itemGroup.itemsTab=Spiral Power Items
+itemGroup.blocksTab=Spiral Power Blocks
+itemGroup.toolsTab=Spiral Power Tools
+itemGroup.armorTab=Spiral Power Armor
+
+achievement.coreDrillAchievement=Unlock Your Potential
+achievement.coreDrillAchievement.desc=Found your Core Drill.
+
+achievement.rawSpiralAchievement=What Is This Power!?
+achievement.rawSpiralAchievement.desc=You've Gained the Power of the Spiral!
+
+achievement.spiralChunkAchievement=Power Up
+achievement.spiralChunkAchievement.desc=You've Created A More Powerful Spiral Chunk!
