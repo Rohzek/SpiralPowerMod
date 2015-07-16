@@ -29,7 +29,8 @@ public class SpiralDrill extends ItemPickaxe
 	}
 	
 	@Override
-	public Set<String> getToolClasses(ItemStack stack) {
+	public Set<String> getToolClasses(ItemStack stack) 
+	{
 	    return ImmutableSet.of("pickaxe", "spade");
 	}
 	

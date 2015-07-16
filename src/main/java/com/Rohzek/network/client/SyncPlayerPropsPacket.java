@@ -41,10 +41,12 @@ public class SyncPlayerPropsPacket extends AbstractClientPacket<SyncPlayerPropsP
 	private NBTTagCompound data;
 
 	// The basic, no-argument constructor MUST be included to use the new automated handling
-	public SyncPlayerPropsPacket() {}
+	public SyncPlayerPropsPacket() 
+	{}
 
 	// We need to initialize our data, so provide a suitable constructor:
-	public SyncPlayerPropsPacket(EntityPlayer player) {
+	public SyncPlayerPropsPacket(EntityPlayer player)
+	{
 		// create a new tag compound
 		data = new NBTTagCompound();
 		// and save our player's data into it
@@ -52,17 +54,20 @@ public class SyncPlayerPropsPacket extends AbstractClientPacket<SyncPlayerPropsP
 	}
 
 	@Override
-	protected void read(PacketBuffer buffer) throws IOException {
+	protected void read(PacketBuffer buffer) throws IOException 
+	{
 		data = buffer.readNBTTagCompoundFromBuffer();
 	}
 
 	@Override
-	protected void write(PacketBuffer buffer) throws IOException {
+	protected void write(PacketBuffer buffer) throws IOException 
+	{
 		buffer.writeNBTTagCompoundToBuffer(data);
 	}
 
 	@Override
-	public void process(EntityPlayer player, Side side) {
+	public void process(EntityPlayer player, Side side) 
+	{
 		// now we can just load the NBTTagCompound data directly; one and done, folks
 		SPExtendedPlayerStats.get(player).loadNBTData(data);
 	}

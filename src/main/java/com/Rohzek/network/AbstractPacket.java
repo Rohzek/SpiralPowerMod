@@ -63,7 +63,8 @@ public abstract class AbstractPacket<T extends AbstractPacket<T>> implements IMe
 	 * If message is sent to the wrong side, an exception will be thrown during handling
 	 * @return True if the message is allowed to be handled on the given side
 	 */
-	protected boolean isValidOnSide(Side side) {
+	protected boolean isValidOnSide(Side side) 
+	{
 		return true; // default allows handling on both sides, i.e. a bidirectional packet
 	}
 
@@ -71,24 +72,33 @@ public abstract class AbstractPacket<T extends AbstractPacket<T>> implements IMe
 	 * Whether this message requires the main thread to be processed (i.e. it
 	 * requires that the world, player, and other objects are in a valid state).
 	 */
-	protected boolean requiresMainThread() {
+	protected boolean requiresMainThread() 
+	{
 		return true;
 	}
 
 	@Override
-	public void fromBytes(ByteBuf buffer) {
-		try {
+	public void fromBytes(ByteBuf buffer) 
+	{
+		try
+		{
 			read(new PacketBuffer(buffer));
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			throw Throwables.propagate(e);
 		}
 	}
 
 	@Override
-	public void toBytes(ByteBuf buffer) {
-		try {
+	public void toBytes(ByteBuf buffer)
+	{
+		try 
+		{
 			write(new PacketBuffer(buffer));
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			throw Throwables.propagate(e);
 		}
 	}
@@ -104,21 +114,28 @@ public abstract class AbstractPacket<T extends AbstractPacket<T>> implements IMe
 	 * in every single packet class for the sole purpose of registration.
 	 */
 	@Override
-	public final IMessage onMessage(T msg, MessageContext ctx) {
-		if (!msg.isValidOnSide(ctx.side)) {
+	public final IMessage onMessage(T msg, MessageContext ctx) 
+	{
+		if (!msg.isValidOnSide(ctx.side)) 
+		{
 			throw new RuntimeException("Invalid side " + ctx.side.name() + " for " + msg.getClass().getSimpleName());
-		}else {
+		}
+		else 
+		{
 			msg.process(MainRegistry.proxyServer.getPlayerEntity(ctx), ctx.side);
 		}
+		
 		return null;
 	}
 
 	/**
 	 * Messages that can only be sent from the server to the client should use this class
 	 */
-	public static abstract class AbstractClientPacket<T extends AbstractPacket<T>> extends AbstractPacket<T> {
+	public static abstract class AbstractClientPacket<T extends AbstractPacket<T>> extends AbstractPacket<T> 
+	{
 		@Override
-		protected final boolean isValidOnSide(Side side) {
+		protected final boolean isValidOnSide(Side side) 
+		{
 			return side.isClient();
 		}
 	}
@@ -126,9 +143,11 @@ public abstract class AbstractPacket<T extends AbstractPacket<T>> implements IMe
 	/**
 	 * Messages that can only be sent from the client to the server should use this class
 	 */
-	public static abstract class AbstractServerPacket<T extends AbstractPacket<T>> extends AbstractPacket<T> {
+	public static abstract class AbstractServerPacket<T extends AbstractPacket<T>> extends AbstractPacket<T> 
+	{
 		@Override
-		protected final boolean isValidOnSide(Side side) {
+		protected final boolean isValidOnSide(Side side) 
+		{
 			return side.isServer();
 		}
 	}

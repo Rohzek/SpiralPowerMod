@@ -73,12 +73,15 @@ public class SpiralBlock extends Block
 	}
 	// This makes it so that only item of type SpiralDrill can break this block.
 	@Override
-	public float getPlayerRelativeBlockHardness(EntityPlayer entityPlayer, World world, int x, int y, int z ){
+	public float getPlayerRelativeBlockHardness(EntityPlayer entityPlayer, World world, int x, int y, int z )
+	{
 		ItemStack heldStack = entityPlayer.getHeldItem();
+		
 		if( heldStack != null && heldStack.getItem() instanceof SpiralDrill)
 		{
 			return super.getPlayerRelativeBlockHardness( entityPlayer, world, x, y, z );
 		}
+		
 		return 0.0F;
 	}
 }

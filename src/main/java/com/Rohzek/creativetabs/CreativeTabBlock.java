@@ -8,7 +8,8 @@ import net.minecraft.item.Item;
 public class CreativeTabBlock extends CreativeTabs 
 {
 
-	public CreativeTabBlock(String name) {
+	public CreativeTabBlock(String name) 
+	{
 		super(name);
 	}
 

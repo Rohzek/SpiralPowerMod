@@ -37,9 +37,11 @@ public class PlaySoundPacket extends AbstractPacket<PlaySoundPacket>
 	 * (yes, that is indeed slightly wasteful when sending this packet to the client...) */
 	private double x, y, z;
 
-	public PlaySoundPacket() {}
+	public PlaySoundPacket() 
+	{}
 
-	public PlaySoundPacket(String sound, float volume, float pitch, double x, double y, double z) {
+	public PlaySoundPacket(String sound, float volume, float pitch, double x, double y, double z) 
+	{
 		this.sound = sound;
 		this.volume = volume;
 		this.pitch = pitch;
@@ -52,19 +54,22 @@ public class PlaySoundPacket extends AbstractPacket<PlaySoundPacket>
 	 * Use only when sending to the SERVER to use the entity's coordinates as the center;
 	 * if sent to the client, the position coordinates will be ignored.
 	 */
-	public PlaySoundPacket(String sound, float volume, float pitch, Entity entity) {
+	public PlaySoundPacket(String sound, float volume, float pitch, Entity entity) 
+	{
 		this(sound, volume, pitch, entity.posX, entity.posY, entity.posZ);
 	}
 
 	/**
 	 * Use only when sending to the CLIENT - the sound will play at the player's position
 	 */
-	public PlaySoundPacket(String sound, float volume, float pitch) {
+	public PlaySoundPacket(String sound, float volume, float pitch) 
+	{
 		this(sound, volume, pitch, 0, 0, 0);
 	}
 
 	@Override
-	protected void read(PacketBuffer buffer) throws IOException {
+	protected void read(PacketBuffer buffer) throws IOException 
+	{
 		sound = ByteBufUtils.readUTF8String(buffer);
 		volume = buffer.readFloat();
 		pitch = buffer.readFloat();
@@ -74,7 +79,8 @@ public class PlaySoundPacket extends AbstractPacket<PlaySoundPacket>
 	}
 
 	@Override
-	protected void write(PacketBuffer buffer) throws IOException {
+	protected void write(PacketBuffer buffer) throws IOException 
+	{
 		ByteBufUtils.writeUTF8String(buffer, sound);
 		buffer.writeFloat(volume);
 		buffer.writeFloat(pitch);
@@ -84,12 +90,16 @@ public class PlaySoundPacket extends AbstractPacket<PlaySoundPacket>
 	}
 
 	@Override
-	public void process(EntityPlayer player, Side side) {
+	public void process(EntityPlayer player, Side side) 
+	{
 		// Since this packet is handled differently, we need to check side
-		if (side.isClient()) {
+		if (side.isClient()) 
+		{
 			// Plays a sound only the client can hear
 			player.playSound(sound, volume, pitch);
-		} else {
+		}
+		else 
+		{
 			// Plays a sound that everyone nearby can hear
 			player.worldObj.playSoundEffect(x, y, z, sound, volume, pitch);
 		}

@@ -54,34 +54,36 @@ public class PacketPipeline
 
 
 		// Bidirectional packets:
-		registerMessage(PlaySoundPacket.class);
+		//registerMessage(PlaySoundPacket.class);
 	}
 
 	/**
 	 * Registers an {@link AbstractMessage} to the appropriate side(s)
 	 */
-	private static final <T extends AbstractPacket<T> & IMessageHandler<T, IMessage>> void registerMessage(Class<T> clazz) {
+	private static final <T extends AbstractPacket<T> & IMessageHandler<T, IMessage>> void registerMessage(Class<T> clazz) 
+	{
 		// We can tell by the message class which side to register it on by using #isAssignableFrom (google it)
 
 		// Also, one can see the convenience of using a static counter 'packetId' to keep
 		// track of the current index, rather than hard-coding them all, plus it's one less
 		// parameter to pass.
-		if (AbstractPacket.AbstractClientPacket.class.isAssignableFrom(clazz)) {
+		if (AbstractPacket.AbstractClientPacket.class.isAssignableFrom(clazz)) 
+		{
 			PacketPipeline.dispatcher.registerMessage(clazz, clazz, packetId++, Side.CLIENT);
-		} else if (AbstractPacket.AbstractServerPacket.class.isAssignableFrom(clazz)) {
+		} 
+		
+		else if (AbstractPacket.AbstractServerPacket.class.isAssignableFrom(clazz)) 
+		{
 			PacketPipeline.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
-		} else {
+		} 
+		
+		else 
+		{
 			// hopefully you didn't forget to extend the right class, or you will get registered on both sides
 			PacketPipeline.dispatcher.registerMessage(clazz, clazz, packetId, Side.CLIENT);
 			PacketPipeline.dispatcher.registerMessage(clazz, clazz, packetId++, Side.SERVER);
 		}
 	}
-
-	//========================================================//
-	// The following methods are the 'wrapper' methods; again,
-	// this just makes sending a message slightly more compact
-	// and is purely a matter of stylistic preference
-	//========================================================//
 
 	/**
 	 * Send this message to the specified player's client-side counterpart.
@@ -96,7 +98,8 @@ public class PacketPipeline
 	 * Send this message to everyone.
 	 * See {@link SimpleNetworkWrapper#sendToAll(IMessage)}
 	 */
-	public static void sendToAll(IMessage message) {
+	public static void sendToAll(IMessage message)
+	{
 		PacketPipeline.dispatcher.sendToAll(message);
 	}
 
@@ -104,7 +107,8 @@ public class PacketPipeline
 	 * Send this message to everyone within a certain range of a point.
 	 * See {@link SimpleNetworkWrapper#sendToAllAround(IMessage, NetworkRegistry.TargetPoint)}
 	 */
-	public static final void sendToAllAround(IMessage message, NetworkRegistry.TargetPoint point) {
+	public static final void sendToAllAround(IMessage message, NetworkRegistry.TargetPoint point) 
+	{
 		PacketPipeline.dispatcher.sendToAllAround(message, point);
 	}
 
@@ -112,15 +116,17 @@ public class PacketPipeline
 	 * Sends a message to everyone within a certain range of the coordinates in the same dimension.
 	 * Shortcut to {@link SimpleNetworkWrapper#sendToAllAround(IMessage, NetworkRegistry.TargetPoint)}
 	 */
-	public static final void sendToAllAround(IMessage message, int dimension, double x, double y, double z, double range) {
-		PacketPipeline.sendToAllAround(message, new NetworkRegistry.TargetPoint(dimension, x, y, z, range));
-	}
+	//public static final void sendToAllAround(IMessage message, int dimension, double x, double y, double z, double range) 
+	//{
+	//	PacketPipeline.sendToAllAround(message, new NetworkRegistry.TargetPoint(dimension, x, y, z, range));
+	//}
 
 	/**
 	 * Sends a message to everyone within a certain range of the player provided.
 	 * Shortcut to {@link SimpleNetworkWrapper#sendToAllAround(IMessage, NetworkRegistry.TargetPoint)}
 	 */
-	//public static final void sendToAllAround(IMessage message, EntityPlayer player, double range) {
+	//public static final void sendToAllAround(IMessage message, EntityPlayer player, double range) 
+	//{
 	//	PacketPipeline.sendToAllAround(message, player.worldObj.provider.getDimensionId(), player.posX, player.posY, player.posZ, range);
 	//}
 
@@ -128,7 +134,8 @@ public class PacketPipeline
 	 * Send this message to everyone within the supplied dimension.
 	 * See {@link SimpleNetworkWrapper#sendToDimension(IMessage, int)}
 	 */
-	public static final void sendToDimension(IMessage message, int dimensionId) {
+	public static final void sendToDimension(IMessage message, int dimensionId) 
+	{
 		PacketPipeline.dispatcher.sendToDimension(message, dimensionId);
 	}
 
@@ -136,7 +143,8 @@ public class PacketPipeline
 	 * Send this message to the server.
 	 * See {@link SimpleNetworkWrapper#sendToServer(IMessage)}
 	 */
-	public static final void sendToServer(IMessage message) {
+	public static final void sendToServer(IMessage message) 
+	{
 		PacketPipeline.dispatcher.sendToServer(message);
 	}
 }
