@@ -90,22 +90,18 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		coreDrillFound = found;
 	}
 	
-	public final static boolean consumeMana(float amount)
+	public final boolean consumeMana(float amount)
 	{
 		boolean sufficient = amount <= currentMana;
 		currentMana -= (amount < currentMana ? amount : currentMana);
-		
-		sync();
 		
 		return sufficient;
 	}
 	
-	public final static boolean consumeMana(int amount)
+	public final boolean consumeMana(int amount)
 	{
 		boolean sufficient = amount <= currentMana;
 		currentMana -= (amount < currentMana ? amount : currentMana);
-		
-		sync();
 		
 		return sufficient;
 	}
@@ -113,8 +109,6 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	public final void replenishMana()
 	{
 		this.currentMana = this.maxMana;
-		
-		sync();
 	}
 	
 	public static int getMaxMana()
@@ -125,37 +119,39 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	public void setMaxMana(int amount)
 	{
 		this.maxMana = (amount > 0 ? amount : 0);
-		
-		sync();
 	}
 	
-	public final static int getCurrentMana()
+	public final int getCurrentMana()
 	{
 		return currentMana;
 	}
 	
-	public final static void setCurrentMana(int amount)
+	public final void setCurrentMana(int amount)
 	{
 		currentMana = amount < currentMana ? amount : amount;
-		
-		sync();
 	}
 	
-	public final static void addCurrentMana(int amount)
+	public final void addCurrentMana(int amount)
 	{
+		// learn how ternary operator works... put it here
 		int add = currentMana += amount;
-		currentMana = add;
 		
-		sync();
+		if (add < maxMana)
+		{
+			currentMana = add;
+		}
+		else
+		{
+			currentMana = maxMana;
+		}
 	}
 	
-	public final static void sync()
+	public final void sync(EntityPlayerMP playerMP)
 	{
 		if (!player.worldObj.isRemote) 
 		{
-			// If is server, use packets
-			System.out.println("Sending packet: Player.NBT to " + player);
-			PacketPipeline.sendTo(new SyncPlayerPropsPacket(player), (EntityPlayerMP) player);
+			System.out.println("Sending Packet to " + playerMP.getDisplayName());
+			PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
 		}
 		else
 		{}

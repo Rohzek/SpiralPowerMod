@@ -33,7 +33,10 @@ public class LivingFallEvent
 				props.consumeMana((int) reduceby);
 				
 				// Print to console for debugging
-				System.out.println(event.entity + " has " + props.getCurrentMana() + " mana left");
+				EntityPlayerMP debugName = (EntityPlayerMP)event.entity;
+				System.out.println(debugName.getDisplayName() + " has " + props.getCurrentMana() + " mana left");
+				
+				props.sync(debugName);
 			}
 		}
 	}

@@ -7,6 +7,7 @@ import com.Rohzek.lib.RefStrings;
 import com.Rohzek.player.SPExtendedPlayerStats;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
@@ -27,9 +28,17 @@ public class SpiralDroplet extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack item, World world, EntityPlayer player)
     {
-		if(SPExtendedPlayerStats.getCurrentMana() < SPExtendedPlayerStats.getMaxMana())
+		SPExtendedPlayerStats props = SPExtendedPlayerStats.get(player);
+		
+		if(props.getCurrentMana() < props.getMaxMana())
 		{
-			SPExtendedPlayerStats.addCurrentMana(5);
+			props.addCurrentMana(5);
+			if (!player.worldObj.isRemote)
+			{
+				EntityPlayerMP playerDebug = (EntityPlayerMP) props.player;
+				props.sync((EntityPlayerMP) playerDebug);
+			}
+			
 			--item.stackSize;
 		}
         return item;
