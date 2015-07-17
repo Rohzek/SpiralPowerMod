@@ -151,16 +151,9 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	{
 		if (!player.worldObj.isRemote) 
 		{
-			if(playerMP.getDisplayName() == player.getDisplayName())
-			{
-				System.out.println("Sending Packet to " + playerMP.getDisplayName());
-				PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
-				System.out.println(playerMP.getDisplayName() + " has " + currentMana + " mana left");
-			}
-			else
-			{
-				System.out.println("DEBUG: Attempt to send packet to wrong player blocked");
-			}
+			System.out.println("Sending Packet to " + playerMP.getDisplayName());
+			PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
+			System.out.println(playerMP.getDisplayName() + " has " + currentMana + " mana left");
 		}
 		else
 		{}
