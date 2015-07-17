@@ -25,7 +25,7 @@ public class LivingFallEvent
 	{
 		if (event.entity instanceof EntityPlayer || event.entity instanceof EntityPlayerMP) 
 		{
-			SPExtendedPlayerStats props = SPExtendedPlayerStats.get((EntityPlayer) event.entity);
+			SPExtendedPlayerStats props = SPExtendedPlayerStats.get((EntityPlayerMP) event.entity);
 			if (event.ammount > 3.0F && props.getCurrentMana() > 0) 
 			{
 				float reduceby = props.getCurrentMana() < (event.ammount - 3.0F) ? props.getCurrentMana() : (event.ammount - 3.0F);
@@ -34,7 +34,6 @@ public class LivingFallEvent
 				
 				// Print to console for debugging
 				EntityPlayerMP debugName = (EntityPlayerMP)event.entity;
-				System.out.println(debugName.getDisplayName() + " has " + props.getCurrentMana() + " mana left");
 				
 				props.sync(debugName);
 			}

@@ -32,11 +32,11 @@ public class SpiralDroplet extends Item
 		
 		if(props.getCurrentMana() < props.getMaxMana())
 		{
-			props.addCurrentMana(5);
+			props.addCurrentMana(10);
 			if (!player.worldObj.isRemote)
 			{
-				EntityPlayerMP playerDebug = (EntityPlayerMP) props.player;
-				props.sync((EntityPlayerMP) playerDebug);
+				EntityPlayerMP playerDebug = (EntityPlayerMP) player;
+				props.sync(playerDebug);
 			}
 			
 			--item.stackSize;

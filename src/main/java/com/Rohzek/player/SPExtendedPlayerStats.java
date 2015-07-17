@@ -5,6 +5,8 @@ import ibxm.Player;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
+import akka.actor.Props;
+
 import com.Rohzek.network.PacketPipeline;
 import com.Rohzek.network.client.SyncPlayerPropsPacket;
 import com.Rohzek.spiralpowermod.MainRegistry;
@@ -28,7 +30,7 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	private static int maxMana;
 	
 	public SPExtendedPlayerStats(EntityPlayer p) 
-	{	
+	{
 		this.coreDrillFound = false;
 		
 		player = p;
@@ -39,12 +41,12 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	}
 	
 	
-	public static final void register(EntityPlayer player)
+	public final static void register(EntityPlayer player)
 	{
 		player.registerExtendedProperties(SPExtendedPlayerStats.EXT_PROP_NAME, new SPExtendedPlayerStats(player));
 	}
 	
-	public static final SPExtendedPlayerStats get(EntityPlayer player)
+	public final static SPExtendedPlayerStats get(EntityPlayer player)
 	{
 		return (SPExtendedPlayerStats) player.getExtendedProperties(EXT_PROP_NAME);
 	}
@@ -94,7 +96,6 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	{
 		boolean sufficient = amount <= currentMana;
 		currentMana -= (amount < currentMana ? amount : currentMana);
-		
 		return sufficient;
 	}
 	
@@ -150,8 +151,16 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	{
 		if (!player.worldObj.isRemote) 
 		{
-			System.out.println("Sending Packet to " + playerMP.getDisplayName());
-			PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
+			if(playerMP.getDisplayName() == player.getDisplayName())
+			{
+				System.out.println("Sending Packet to " + playerMP.getDisplayName());
+				PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
+				System.out.println(playerMP.getDisplayName() + " has " + currentMana + " mana left");
+			}
+			else
+			{
+				System.out.println("DEBUG: Attempt to send packet to wrong player blocked");
+			}
 		}
 		else
 		{}

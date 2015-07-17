@@ -69,7 +69,7 @@ public class GuiManaBar extends Gui
 		int manabarwidth = (int)(((float) props.getCurrentMana() / props.getMaxMana()) * 49);
 		drawTexturedModalRect(xPos + 3, yPos + 3, 0, 9, manabarwidth, 3);
 	
-		String s = "Mana " + props.getCurrentMana() + "/" + props.getMaxMana();
+		String s = "   " + props.getCurrentMana() + "/" + props.getMaxMana();
 		yPos += 10;
 		this.mc.fontRenderer.drawString(s, xPos + 1, yPos, 0);
 		this.mc.fontRenderer.drawString(s, xPos - 1, yPos, 0);
