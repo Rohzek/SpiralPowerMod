@@ -12,7 +12,7 @@ import com.Rohzek.creativetabs.SPCreativeTabs;
 import com.Rohzek.handlers.AchievementHandler;
 import com.Rohzek.handlers.CoreDrillHandler;
 import com.Rohzek.handlers.ExtendedPlayerStatsHandler;
-import com.Rohzek.handlers.LivingFallEvent;
+import com.Rohzek.handlers.FallEvent;
 import com.Rohzek.handlers.SpiralDrillBreakHandler;
 import com.Rohzek.item.SPItems;
 import com.Rohzek.lib.RefStrings;
@@ -68,7 +68,7 @@ public class MainRegistry
 		MinecraftForge.EVENT_BUS.register(new ExtendedPlayerStatsHandler());  // Player Stats
 		MinecraftForge.EVENT_BUS.register(new CoreDrillHandler());            // Core Drill Checker
 		MinecraftForge.EVENT_BUS.register(new SpiralDrillBreakHandler());     // Spiral Drill Breaking
-		MinecraftForge.EVENT_BUS.register(new LivingFallEvent());             // Fall Damage tracker
+		MinecraftForge.EVENT_BUS.register(new FallEvent());             // Fall Damage tracker
 		
 		// Remember to register packets here!
 		PacketPipeline.registerPackets();

@@ -7,6 +7,7 @@ import java.io.DataOutputStream;
 
 import akka.actor.Props;
 
+import com.Rohzek.lib.RefStrings;
 import com.Rohzek.network.PacketPipeline;
 import com.Rohzek.network.client.SyncPlayerPropsPacket;
 import com.Rohzek.spiralpowermod.MainRegistry;
@@ -62,7 +63,7 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		return (SPExtendedPlayerStats) player.getExtendedProperties(EXT_PROP_NAME);
 	}
 	
-	// Saves data from players into the NBT... Not sure what the NBT is/does.. But will be needed for data persistence when the bugs are worked out.
+	// Saves data from players into the NBT
 	@Override
 	public void saveNBTData(NBTTagCompound compound) 
 	{
@@ -73,9 +74,7 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		properties.setInteger("CurrentMana", this.currentMana);
 		properties.setInteger("MaxMana", this.maxMana);
 		
-		compound.setTag(EXT_PROP_NAME, properties);
-		
-		
+		compound.setTag(EXT_PROP_NAME, properties);	
 	}
 
 	// Loads data from the NBT
@@ -107,11 +106,18 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		coreDrillFound = found;
 	}
 	
+	
+	// Ternary Operator is used as such: value = a < b ? a : b
+	//                                   value = a if a < b else it's equal to b
+	
+	
 	// Consume float amount of mana.. included for completeness.. probably wont be used?
 	public boolean consumeMana(float amount)
 	{
 		boolean sufficient = amount <= currentMana;
 		currentMana -= (amount < currentMana ? amount : currentMana);
+		manaCheck();
+		
 		return sufficient;
 	}
 	
@@ -120,6 +126,7 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	{
 		boolean sufficient = amount <= currentMana;
 		currentMana -= (amount < currentMana ? amount : currentMana);
+		manaCheck();
 		
 		return sufficient;
 	}
@@ -128,11 +135,13 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	public void replenishMana()
 	{
 		this.currentMana = this.maxMana;
+		manaCheck();
 	}
 	
 	// Getter for maxmimum mana amount
 	public int getMaxMana()
 	{
+		manaCheck();
 		return maxMana;
 	}
 	
@@ -140,11 +149,13 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	public void setMaxMana(int amount)
 	{
 		this.maxMana = (amount > 0 ? amount : 0);
+		manaCheck();
 	}
 	
 	// Getter for current mana amount
 	public int getCurrentMana()
 	{
+		manaCheck();
 		return currentMana;
 	}
 	
@@ -152,24 +163,39 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	public void setCurrentMana(int amount)
 	{
 		currentMana = amount < currentMana ? amount : amount;
+		manaCheck();
 	}
 	
 	// Setter for adding mana amount.. adds this amount to the existing mana amount
 	public void addCurrentMana(int amount)
 	{
-		currentMana += amount < currentMana ? amount : maxMana;
+		int localAmount = amount < currentMana ? amount : maxMana;
+		currentMana += localAmount;
+		manaCheck();
 	}
 	
+	private void manaCheck()
+	{
+		if(currentMana > maxMana)
+		{
+			currentMana = maxMana;
+		}
+		else
+		{}
+	}
 	// send packets from server to clients to display GUI bar with. Also has debug println
 	public void sync(EntityPlayerMP playerMP)
 	{
 		if (!player.worldObj.isRemote) 
 		{
-			System.out.println("Sending Packet to " + playerMP.getDisplayName());
-			
 			PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
 			
-			System.out.println(playerMP.getDisplayName() + " has " + currentMana + " mana left");
+			if(RefStrings.DEBUG)
+			{
+				System.out.println("Sending Packet to " + playerMP.getDisplayName());
+				System.out.println(playerMP.getDisplayName() + " has " + currentMana + " mana left");
+				System.out.println(playerMP.getDisplayName() + " CoreDrill Status: " + coreDrillFound);
+			}
 		}
 		else
 		{}

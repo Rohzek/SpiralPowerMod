@@ -14,4 +14,6 @@ public class RefStrings
 	public static final String SERVERSIDE = "com.Rohzek.spiralpowermod.ServerProxy";
 	
 	public static final String PACKET_CHANNEL = "spiralpowermod";
+	
+	public static final boolean DEBUG = true;
 }

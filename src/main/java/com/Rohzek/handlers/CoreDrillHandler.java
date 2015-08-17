@@ -3,6 +3,7 @@ package com.Rohzek.handlers;
 import java.util.Random;
 
 import com.Rohzek.item.SPItems;
+import com.Rohzek.lib.RefStrings;
 import com.Rohzek.player.SPExtendedPlayerStats;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,19 +40,39 @@ public class CoreDrillHandler
 					// uses random number geenrator to generate a number between 1 and 500
 					int check = r.nextInt(500) + 1;
 					
-					// if number generated matches any of the numbers below then generate a coredrill for the player.
-					if(check == 13 || check == 169 || check == 221 || check == 343 || check == 404)
+					// If debugging make it easy to get a coredrill
+					if(RefStrings.DEBUG)
 					{
-						event.drops.add(new ItemStack(SPItems.coreDrill, 1));
-						// Sorry we're heartless. Coredrills are "soulbound" so generating one blocks generation..
-						// Hope it doesn't fall in lava or someone else steals it...
-						props.setCoreDrillFound(true);
+						if(check > 1)
+						{
+							if(check > 1)
+							{
+								event.drops.add(new ItemStack(SPItems.coreDrill, 1));
+								// Sorry we're heartless. Coredrills are "soulbound" so generating one blocks generation..
+								// Hope it doesn't fall in lava or someone else steals it...
+								props.setCoreDrillFound(true);
+								
+								props.sync((EntityPlayerMP)props.player);
+							}
+						}
+					}
+					// Else on the release make coredrills the normal drops.
+					else
+					{
+						if(check == 13 || check == 169 || check == 221 || check == 343 || check == 404)
+						{
+							if(check > 1)
+							{
+								event.drops.add(new ItemStack(SPItems.coreDrill, 1));
+								// Sorry we're heartless. Coredrills are "soulbound" so generating one blocks generation..
+								// Hope it doesn't fall in lava or someone else steals it...
+								props.setCoreDrillFound(true);
+								
+								props.sync((EntityPlayerMP)props.player);
+							}
+						}
 					}
 				}
-				else
-				{
-							
-				}	
 			}
 		}
 	}
