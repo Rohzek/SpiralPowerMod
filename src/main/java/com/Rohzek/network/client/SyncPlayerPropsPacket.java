@@ -11,6 +11,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 
+//COMMENTS IN THIS CLASS ADDED BY AUTHOR OF TUTORIAL I FOLLOWED.. Networking is way over my head.
+
 /**
  * 
  * A packet to send ALL data stored in your extended properties to the client.

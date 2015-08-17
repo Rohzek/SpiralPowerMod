@@ -11,6 +11,9 @@ import com.Rohzek.network.AbstractPacket;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 
+//COMMENTS IN THIS CLASS ADDED BY AUTHOR OF TUTORIAL I FOLLOWED.. Networking is way over my head.
+// I currently do not use this... but probably definetly will later.
+
 /**
  * 
  * Plays a sound on either the client (only that one player hears the sound)

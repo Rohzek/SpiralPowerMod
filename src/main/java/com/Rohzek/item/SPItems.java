@@ -11,26 +11,30 @@ import net.minecraft.item.ItemStack;
 
 public class SPItems 
 {
+	// Calls all functions required in one easy call. Is called from main class.
 	public static void mainRegistry()
 	{
 		initializeItem();
 		registerItem();
 	}
 	
+	// creates items
 	public static CoreDrill coreDrill;
 	public static SpiralDroplet spiralDroplet;
 	public static Item spiralPowerChunk;
 	public static Item yokoBullet;
 	
-	
+	// initializes items.
 	public static void initializeItem()
 	{
+		// No standard format. Some things handled here, some have their own class. May or may change as items are added and tweaked.
 		coreDrill = new CoreDrill();
 		spiralDroplet = new SpiralDroplet();
 		spiralPowerChunk = new Item().setUnlocalizedName("spiralPowerChunk").setTextureName(RefStrings.MODID + ":spiralPower").setCreativeTab(SPCreativeTabs.itemsTab);
 		yokoBullet = new Item().setUnlocalizedName("yokoBullet").setTextureName(RefStrings.MODID + ":yokoBullet").setCreativeTab(SPCreativeTabs.itemsTab);
 	}
 	
+	// Adds items to game registry.
 	public static void registerItem()
 	{
 		GameRegistry.registerItem(coreDrill, coreDrill.getUnlocalizedName());

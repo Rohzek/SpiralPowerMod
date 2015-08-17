@@ -38,6 +38,8 @@ public class MainRegistry
 	@SidedProxy(clientSide = RefStrings.CLIENTSIDE, serverSide = RefStrings.SERVERSIDE)
 	public static ServerProxy proxyServer;
 	
+	// Calling all the mainregistry functions from everything that needed to be registered.
+	// also handles registers for handlers that needed to be registered on both sides.
 	@EventHandler
 	public static void PreLoad(FMLPreInitializationEvent PreEvent)
 	{
@@ -62,24 +64,27 @@ public class MainRegistry
 		// Messages
 		
 		// FML Event Busses
-		FMLCommonHandler.instance().bus().register(new AchievementHandler());
-		MinecraftForge.EVENT_BUS.register(new ExtendedPlayerStatsHandler());
-		MinecraftForge.EVENT_BUS.register(new CoreDrillHandler());
-		MinecraftForge.EVENT_BUS.register(new SpiralDrillBreakHandler());
-		MinecraftForge.EVENT_BUS.register(new LivingFallEvent());
+		FMLCommonHandler.instance().bus().register(new AchievementHandler()); // Achievements
+		MinecraftForge.EVENT_BUS.register(new ExtendedPlayerStatsHandler());  // Player Stats
+		MinecraftForge.EVENT_BUS.register(new CoreDrillHandler());            // Core Drill Checker
+		MinecraftForge.EVENT_BUS.register(new SpiralDrillBreakHandler());     // Spiral Drill Breaking
+		MinecraftForge.EVENT_BUS.register(new LivingFallEvent());             // Fall Damage tracker
 		
-		// Remember to register packets!
+		// Remember to register packets here!
 		PacketPipeline.registerPackets();
 		
-		// Register Renders. HAS TO BE DONE LAST. NO IFS ANDS OR ASSES
+		// Register Renders. As I understand it: THIS HAS TO BE DONE LAST. NO IFS ANDS OR ASSES
+		// But uh... I could be wrong.
 		proxyServer.registerRenderInfo();
 	}
 	
+	// As far as I can tell nothing needs to be done in this, it's all done in PreLoad.
 	@EventHandler
 	public static void load(FMLInitializationEvent event)
 	{
 	}
 	
+	// As far as I can tell nothing needs to be done in this, it's all done in PreLoad.
 	@EventHandler
 	public static void PostLoad(FMLPostInitializationEvent PostEvent)
 	{

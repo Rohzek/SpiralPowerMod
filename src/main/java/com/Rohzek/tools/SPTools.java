@@ -17,14 +17,18 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public class SPTools 
 {
+	// Calls both functions in one easy call. Is called in main class.
 	public static void mainRegistry()
 	{
 		initializeItem();
 		registerItem();
 	}
 	
+	// adds toool material
+	// format: Material name, Mining level (0 wood, 3 diamond, 4 modded.. mines anything, uses, efficiency on intended mateiral, damage vs entity, enchantability
 	public static ToolMaterial spiralPowerMat = EnumHelper.addToolMaterial("Spiral", 4, 3000, 10.0f, 4.5f, 10);
 	
+	// creates items
 	public static Item spiralDrill;
 	public static Item kamKatana;
 	public static Item simonKatana;
@@ -32,6 +36,7 @@ public class SPTools
 	
 	public static Item yokoRifle;
 	
+	// initializes items and applys extra information on items, if not handled in seperate classes.
 	public static void initializeItem()
 	{
 		spiralDrill = new SpiralDrill(spiralPowerMat);
@@ -42,6 +47,7 @@ public class SPTools
 		yokoRifle = new YokoRifle();
 	}
 	
+	// registers items to the game
 	public static void registerItem()
 	{
 		GameRegistry.registerItem(spiralDrill, spiralDrill.getUnlocalizedName());

@@ -11,6 +11,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
 
+//COMMENTS IN THIS CLASS ADDED BY AUTHOR OF TUTORIAL I FOLLOWED.. Networking is way over my head.
 
 /**
  * 

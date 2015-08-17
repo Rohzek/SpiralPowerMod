@@ -13,16 +13,17 @@ import net.minecraftforge.common.util.EnumHelper;
 
 public class SPArmors 
 {
+	// Calls both required functions in one easy call, is ran in main class
 	public static void mainRegistry()
 	{
 		initializeItem();
 		registerItem();
 	}
 	
-	// Better material
+	// Better material, makes up the two late game armors, better than diamond
 	public static ArmorMaterial spiralPowerArmorMat = EnumHelper.addArmorMaterial("Spiral", 40, new int[]{3, 8, 6, 3}, 10);
 	
-	// Not so better material
+	// Not so better material, makes up starter armor... Is still better than Iron Armor
 	public static ArmorMaterial diggerArmorMat = EnumHelper.addArmorMaterial("Digger", 20, new int[]{3, 8, 6, 3}, 10);
 	
 	// Kamina Armor
@@ -43,8 +44,12 @@ public class SPArmors
 	public static Item simonLegs;
 	public static Item simonBoots;
 	
+	// Initializing armors
 	public static void initializeItem()
 	{
+		// Format is: Material, Registery, type (0 is helmet 3 is boots), create unlocalized name, set creative tab, set texture.
+		// Could be done differently, by setting some of these in the armor type class... but I kinda like this way.
+		
 		// Kamina Armor
 		kamGlasses = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 0).setUnlocalizedName("kamGlasses").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":kamGlasses");
 		kamChest = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 1).setUnlocalizedName("kamChest").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":kamChest");
@@ -65,6 +70,7 @@ public class SPArmors
 		
 	}
 	
+	// Registers items. First is item type, second is item name
 	public static void registerItem()
 	{
 		// Kamina Armor

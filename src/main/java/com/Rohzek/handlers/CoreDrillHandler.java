@@ -5,6 +5,8 @@ import java.util.Random;
 import com.Rohzek.item.SPItems;
 import com.Rohzek.player.SPExtendedPlayerStats;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -15,27 +17,42 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class CoreDrillHandler 
 {
+	// Creates a random number generator
 	Random r = new Random();
 	
+	// Not sure whats up with SubscribeEvent. See main classes for more info~ish.
 	@SubscribeEvent
 	public void breakStone(HarvestDropsEvent event)
 	{
-		if(event.block == Blocks.stone)
+		// Find out if this is a player doing this.. Endermen and Sheep don't have mana to take from and don't need a coredrill.
+		if (event.harvester instanceof EntityPlayer || event.harvester instanceof EntityPlayerMP) 
 		{
-			if(SPExtendedPlayerStats.getCoreDrillFound() == false)
+			// Get's isntance of EXPlayerProperties for current player
+			SPExtendedPlayerStats props = SPExtendedPlayerStats.get((EntityPlayer)event.harvester);
+			
+			// Only check when stone is broken.. We only want coredrill to come from stone.
+			if(event.block == Blocks.stone)
 			{
-				int check = r.nextInt(500) + 1;
-				
-				if(check == 13 || check == 169 || check == 221 || check == 343 || check == 404 || check == 504)
+				// check to make sure player hasn't already got a coredrill.
+				if(props.getCoreDrillFound() == false)
 				{
-					event.drops.add(new ItemStack(SPItems.coreDrill, 1));
-					SPExtendedPlayerStats.setCoreDrillFound(true);
+					// uses random number geenrator to generate a number between 1 and 500
+					int check = r.nextInt(500) + 1;
+					
+					// if number generated matches any of the numbers below then generate a coredrill for the player.
+					if(check == 13 || check == 169 || check == 221 || check == 343 || check == 404)
+					{
+						event.drops.add(new ItemStack(SPItems.coreDrill, 1));
+						// Sorry we're heartless. Coredrills are "soulbound" so generating one blocks generation..
+						// Hope it doesn't fall in lava or someone else steals it...
+						props.setCoreDrillFound(true);
+					}
 				}
+				else
+				{
+							
+				}	
 			}
-			else
-			{
-						
-			}	
 		}
 	}
 }

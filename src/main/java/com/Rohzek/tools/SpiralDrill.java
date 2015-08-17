@@ -16,24 +16,30 @@ import net.minecraft.item.ItemStack;
 public class SpiralDrill extends ItemPickaxe
 {
 
-	// make digging too.
+	// applies material to item
 	protected SpiralDrill(ToolMaterial material) 
 	{
 		super(material);
+		// Sets insanely high amount of uses to this item specifically
 		this.setDamage(new ItemStack(SPTools.spiralDrill), -16383);
+		// gives tool style "3D" rendering
 		this.setFull3D();
-		
+		// name of item
 		this.setUnlocalizedName("spiralDrill");
+		// gives texture based on unlocalized name
 		this.setTextureName(RefStrings.MODID + ":spiralDrill");
+		// sets creative tab
 		this.setCreativeTab(SPCreativeTabs.toolsTab);
 	}
 	
+	// Adds additional tool classes to make it an omni tool.
 	@Override
 	public Set<String> getToolClasses(ItemStack stack) 
 	{
-	    return ImmutableSet.of("pickaxe", "spade");
+	    return ImmutableSet.of("pickaxe", "spade", "axe");
 	}
 	
+	// sets blocks that this is most effective against. We used pickaxe as a base and added on to that because pickaxes have the most stuff to deal with.
 	private static Set effectiveAgainst = Sets.newHashSet(new Block[] 
 	{
 		 Blocks.grass, Blocks.dirt, Blocks.sand, Blocks.gravel, 
@@ -42,12 +48,14 @@ public class SpiralDrill extends ItemPickaxe
 		 Blocks.chest, Blocks.pumpkin, Blocks.lit_pumpkin
 	});
 	
+	// Not sure about this function... deobsfucated but not translated. Required for omnitool creation
 	@Override
 	public boolean func_150897_b(Block block) 
 	{
 	    return effectiveAgainst.contains(block) ? true : super.func_150897_b(block);
 	}
 	
+	// also not sure about this but serves a similar purpose... Used to make additional effeincies.
 	@Override
 	public float func_150893_a(ItemStack stack, Block block) 
 	{

@@ -20,38 +20,49 @@ import net.minecraft.network.play.server.S3FPacketCustomPayload;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 
+// This class handles our non standard player stuff added by the mod. Mana, Coredrills.. etc.
 public class SPExtendedPlayerStats implements IExtendedEntityProperties
 {
+	// This has to be unique to this mod or conflicts arise.. Hopefully this is unique enough?
 	public final static String EXT_PROP_NAME = "SPExtendedPlayer";
-	public static EntityPlayer player;
+	// Player to be used for this instance of the class
+	public EntityPlayer player;
+	// Has coredrill been found? Track that.
+	private boolean coreDrillFound;
+	// Current mana to be used for anything involving mana, including GUI bar.
+	private int currentMana;
+	// Same but for max mana.
+	private int maxMana;
 	
-	private static boolean coreDrillFound;
-	private static int currentMana;
-	private static int maxMana;
-	
+	// Initialize the above variables
 	public SPExtendedPlayerStats(EntityPlayer p) 
 	{
+		// Start off having not found the core drill.
 		this.coreDrillFound = false;
 		
+		// player in this class is set to the one passed in.
 		player = p;
 		
+		// Player starts off with 50 max mana.
 		this.maxMana = 50;
 		
+		// Player should start out with max mana.
 		this.currentMana = this.maxMana = 50;
 	}
 	
-	
+	// Registers a player to the EXTPlayerProperties
 	public final static void register(EntityPlayer player)
 	{
 		player.registerExtendedProperties(SPExtendedPlayerStats.EXT_PROP_NAME, new SPExtendedPlayerStats(player));
 	}
 	
+	// Retrieves a players EXTPlayerProperties
 	public final static SPExtendedPlayerStats get(EntityPlayer player)
 	{
 		return (SPExtendedPlayerStats) player.getExtendedProperties(EXT_PROP_NAME);
 	}
 	
-	
+	// Saves data from players into the NBT... Not sure what the NBT is/does.. But will be needed for data persistence when the bugs are worked out.
 	@Override
 	public void saveNBTData(NBTTagCompound compound) 
 	{
@@ -67,6 +78,7 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		
 	}
 
+	// Loads data from the NBT
 	@Override
 	public void loadNBTData(NBTTagCompound compound) 
 	{
@@ -77,29 +89,34 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		this.maxMana = properties.getInteger("MaxMana");
 	}
 
+	// Blank initialization function.. included because tutorial said it should be?
 	@Override
 	public void init(Entity entity, World world) 
 	{	
 	}
-		
-	public static boolean getCoreDrillFound()
+	
+	// Getter for Core Drill tracking
+	public boolean getCoreDrillFound()
 	{
 		return coreDrillFound;
 	}
 	
-	public static void setCoreDrillFound(boolean found)
+	// Setter for Core Drill tracking
+	public void setCoreDrillFound(boolean found)
 	{
 		coreDrillFound = found;
 	}
 	
-	public final boolean consumeMana(float amount)
+	// Consume float amount of mana.. included for completeness.. probably wont be used?
+	public boolean consumeMana(float amount)
 	{
 		boolean sufficient = amount <= currentMana;
 		currentMana -= (amount < currentMana ? amount : currentMana);
 		return sufficient;
 	}
 	
-	public final boolean consumeMana(int amount)
+	// Consume int amount of mana.
+	public boolean consumeMana(int amount)
 	{
 		boolean sufficient = amount <= currentMana;
 		currentMana -= (amount < currentMana ? amount : currentMana);
@@ -107,52 +124,51 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		return sufficient;
 	}
 	
-	public final void replenishMana()
+	// refills current mana to max mana
+	public void replenishMana()
 	{
 		this.currentMana = this.maxMana;
 	}
 	
-	public static int getMaxMana()
+	// Getter for maxmimum mana amount
+	public int getMaxMana()
 	{
 		return maxMana;
 	}
 	
+	// Setter to change maximum mana.. used for leveling up mana amounts later,
 	public void setMaxMana(int amount)
 	{
 		this.maxMana = (amount > 0 ? amount : 0);
 	}
 	
-	public final int getCurrentMana()
+	// Getter for current mana amount
+	public int getCurrentMana()
 	{
 		return currentMana;
 	}
 	
-	public final void setCurrentMana(int amount)
+	// Setter for current mana amount.. Changes current mana to this amount.
+	public void setCurrentMana(int amount)
 	{
 		currentMana = amount < currentMana ? amount : amount;
 	}
 	
-	public final void addCurrentMana(int amount)
+	// Setter for adding mana amount.. adds this amount to the existing mana amount
+	public void addCurrentMana(int amount)
 	{
-		// learn how ternary operator works... put it here
-		int add = currentMana += amount;
-		
-		if (add < maxMana)
-		{
-			currentMana = add;
-		}
-		else
-		{
-			currentMana = maxMana;
-		}
+		currentMana += amount < currentMana ? amount : maxMana;
 	}
 	
-	public final void sync(EntityPlayerMP playerMP)
+	// send packets from server to clients to display GUI bar with. Also has debug println
+	public void sync(EntityPlayerMP playerMP)
 	{
 		if (!player.worldObj.isRemote) 
 		{
 			System.out.println("Sending Packet to " + playerMP.getDisplayName());
+			
 			PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
+			
 			System.out.println(playerMP.getDisplayName() + " has " + currentMana + " mana left");
 		}
 		else

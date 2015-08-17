@@ -16,6 +16,8 @@ import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.relauncher.Side;
 
+// COMMENTS IN THIS CLASS ADDED BY AUTHOR OF TUTORIAL I FOLLOWED.. Networking is way over my head.
+
 /**
  * 
  * Creating an abstract message class similar to {@link Packet} allows us to take

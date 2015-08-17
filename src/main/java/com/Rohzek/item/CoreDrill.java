@@ -14,24 +14,31 @@ import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import com.Rohzek.creativetabs.SPCreativeTabs;
 import com.Rohzek.lib.RefStrings;
 
+// Class for most important part of the entire mod.
 public class CoreDrill extends Item
 {
+	// Normal item creation.. assigns unlocalized name and texture based on said name. also gives it a creative tab
 	public CoreDrill()
 	{
 		super();
 		this.setUnlocalizedName("coreDrill");
 		this.setTextureName(RefStrings.MODID + ":coreDrill");
 		this.setCreativeTab(SPCreativeTabs.itemsTab);
+		// When used in a crafting recipe, return the coredrill back
+		this.setContainerItem(SPItems.coreDrill);
+		// only allow a stack of one... just a formality.. player should never have more than one anyway.
 		this.setMaxStackSize(1);
 	}
 	
 	public boolean hasEffect(ItemStack stack)
 	{
+		// displays glow effect
 		return true;
 	}
 	
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean show)
 	{
+		// "flavor text" or "lore text" whatever you want to call it.
 		list.add("");
 		list.add(EnumChatFormatting.GOLD + "The Core Drill is a small drill, almost key-like in size.");
 		list.add(EnumChatFormatting.GOLD + "It seems to glow with power as you hold it.");

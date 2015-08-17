@@ -21,17 +21,22 @@ public class CraftingManager
 	
 	private static ItemStack enchantStack;
 	
+	// Calls all functions in one easy call. Called in main class.
 	public static void mainRegistry()
 	{
 		addCraftingRec();
 		addSmeltingRec();
 	}
 	
+	// Adds crafting recipies
 	public static void addCraftingRec()
 	{
+		// This item has enchantment added to it when crafted... does not apply when spawned in.. 
+		// Not sure how to make it always have it but this works for now I guess
 		enchantStack = new ItemStack(SPTools.viralCleaver);
 		enchantStack.addEnchantment(Enchantment.sharpness, 4);
 		
+		// Not going into recipe format here.. look up the super class by control clicking .addRecipe() if supported in your IDE.  Eclipse supports it.
 		// Item Recipes
 		GameRegistry.addRecipe(new ItemStack(SPItems.spiralPowerChunk), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralDroplet});
 		GameRegistry.addRecipe(new ItemStack(SPBlocks.SpiralPowerBlock), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralPowerChunk});
@@ -64,9 +69,11 @@ public class CraftingManager
 			
 	}
 	
+	// Format: Item in, ItemStack out, Amount of EXP given
 	public static void addSmeltingRec()
 	{
 		// Smelting Recipes
-		GameRegistry.addSmelting(Blocks.stone, new ItemStack(SPItems.spiralDroplet), 20.0f);
+		// We're removing this but leaving it here as an example on how to make these.
+		//GameRegistry.addSmelting(Blocks.stone, new ItemStack(SPItems.spiralDroplet), 20.0f);
 	}
 }

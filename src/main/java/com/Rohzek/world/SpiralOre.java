@@ -14,6 +14,7 @@ import cpw.mods.fml.common.IWorldGenerator;
 public class SpiralOre implements IWorldGenerator
 {
 
+	// Generates ore in world using a random number, chunk x pos, chunk z pos, and a world.
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world,
 			IChunkProvider chunkGenerator, IChunkProvider chunkProvider) 
@@ -32,6 +33,7 @@ public class SpiralOre implements IWorldGenerator
 		}
 	}
 
+	// adds ore to world using data generated from above function
 	private void addOre(Block block, Block blockspawn, Random random, World world, 
 			int posX, int posZ, int minY, int maxY, int minVeinSize, int maxVeinSize, int spawnChance)
 	{
@@ -48,16 +50,19 @@ public class SpiralOre implements IWorldGenerator
 		}
 	}
 	
+	// to add ore in the End
 	private void generateEnd(Random random, int chunkX, int chunkZ, World world) 
 	{
 		
 	}
 
+	// to add ores to the overworld
 	private void generateOverworld(Random random, int chunkX, int chunkZ, World world) 
 	{
 		addOre(SPBlocks.SpiralPowerBlock, Blocks.stone, random, world, chunkX, chunkZ, 5, 100, 10, 20, 20);
 	}
 
+	// to add ores to the nether
 	private void generateNether(Random random, int chunkX, int chunkZ, World world) 
 	{
 		

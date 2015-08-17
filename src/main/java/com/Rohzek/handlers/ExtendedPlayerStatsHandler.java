@@ -8,14 +8,17 @@ import com.Rohzek.player.SPExtendedPlayerStats;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
+// ExtendedPlayerProperties are created for player when player is first created. This is upon creating a new SP world.. or the first join on a MP World.
+// If errors occur it may be required to delete player data from server so that this can recreate this. I've had to do this in testing.
 public class ExtendedPlayerStatsHandler
 {
+	// Not sure whats up with SubscribeEvent. See main classes for more info~ish.
 	@SubscribeEvent
 	public void onEntityConstructing(EntityConstructing event)
 	{
-		/*
-		Be sure to check if the entity being constructed is the correct type for the extended properties you're about to add! The null check may not be necessary - I only use it to make sure properties are only registered once per entity
-		*/
+		
+		 // Be sure to check if the entity being constructed is the correct type for the extended properties you're about to add! The null check may not be necessary
+		 // I only use it to make sure properties are only registered once per entity
 		if (event.entity instanceof EntityPlayer && SPExtendedPlayerStats.get((EntityPlayer) event.entity) == null)
 		// This is how extended properties are registered using our convenient method from earlier
 			SPExtendedPlayerStats.register((EntityPlayer) event.entity);
@@ -28,6 +31,7 @@ public class ExtendedPlayerStatsHandler
 			event.entity.registerExtendedProperties(SPExtendedPlayerStats.EXT_PROP_NAME, new SPExtendedPlayerStats((EntityPlayer) event.entity));
 	}
 	
+	// Not sure whats up with SubscribeEvent. See main classes for more info~ish.
 	@SubscribeEvent
 	public void onEntityJoinWorld(EntityJoinWorldEvent event)
 	{
