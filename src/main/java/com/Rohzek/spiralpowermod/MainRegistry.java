@@ -2,8 +2,6 @@ package com.Rohzek.spiralpowermod;
 
 import net.minecraftforge.common.MinecraftForge;
 
-import org.apache.logging.log4j.Logger;
-
 import com.Rohzek.achievements.SPAchievements;
 import com.Rohzek.armor.SPArmors;
 import com.Rohzek.block.SPBlocks;
@@ -13,6 +11,7 @@ import com.Rohzek.handlers.AchievementHandler;
 import com.Rohzek.handlers.CoreDrillHandler;
 import com.Rohzek.handlers.ExtendedPlayerStatsHandler;
 import com.Rohzek.handlers.FallEvent;
+import com.Rohzek.handlers.RespawningEvent;
 import com.Rohzek.handlers.SpiralDrillBreakHandler;
 import com.Rohzek.item.SPItems;
 import com.Rohzek.lib.RefStrings;
@@ -68,7 +67,8 @@ public class MainRegistry
 		MinecraftForge.EVENT_BUS.register(new ExtendedPlayerStatsHandler());  // Player Stats
 		MinecraftForge.EVENT_BUS.register(new CoreDrillHandler());            // Core Drill Checker
 		MinecraftForge.EVENT_BUS.register(new SpiralDrillBreakHandler());     // Spiral Drill Breaking
-		MinecraftForge.EVENT_BUS.register(new FallEvent());             // Fall Damage tracker
+		MinecraftForge.EVENT_BUS.register(new FallEvent());                   // Fall Damage tracker
+		MinecraftForge.EVENT_BUS.register(new RespawningEvent());             // Respawn Data Saver
 		
 		// Remember to register packets here!
 		PacketPipeline.registerPackets();

@@ -38,11 +38,11 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	// Initialize the above variables
 	public SPExtendedPlayerStats(EntityPlayer p) 
 	{
-		// Start off having not found the core drill.
-		this.coreDrillFound = false;
-		
 		// player in this class is set to the one passed in.
 		player = p;
+				
+		// Start off having not found the core drill.
+		this.coreDrillFound = false;
 		
 		// Player starts off with 50 max mana.
 		this.maxMana = 50;
@@ -69,7 +69,7 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	{
 		NBTTagCompound properties = new NBTTagCompound();
 		
-		properties.setBoolean("CoreDrillsFound", this.coreDrillFound);
+		properties.setBoolean("coreDrillFound", this.coreDrillFound);
 		
 		properties.setInteger("CurrentMana", this.currentMana);
 		properties.setInteger("MaxMana", this.maxMana);
@@ -87,8 +87,23 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 		this.currentMana = properties.getInteger("CurrentMana");
 		this.maxMana = properties.getInteger("MaxMana");
 	}
+	
+	// Copies data from old player to new player using cloning. Is called when respawning on death
+	public void copyDeath(SPExtendedPlayerStats props) 
+	{
+	    this.maxMana = props.maxMana;
+	    this.coreDrillFound = props.coreDrillFound;
+	}
+	
+	// Copies data from old player to new player using cloning. Is called when respawning on dimension change
+	public void copyDim(SPExtendedPlayerStats props) 
+	{
+	    this.maxMana = props.maxMana;
+	    this.currentMana = props.currentMana;
+	    this.coreDrillFound = props.coreDrillFound;
+	}
 
-	// Blank initialization function.. included because tutorial said it should be?
+	// Blank initialization function.. not used right now
 	@Override
 	public void init(Entity entity, World world) 
 	{	

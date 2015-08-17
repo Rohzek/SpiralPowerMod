@@ -2,6 +2,7 @@ package com.Rohzek.handlers;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
@@ -34,6 +35,10 @@ public class ExtendedPlayerStatsHandler
 		if (!event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer)
 		{
 			SPExtendedPlayerStats props = SPExtendedPlayerStats.get((EntityPlayer)event.entity);
+			
+			NBTTagCompound temp = new NBTTagCompound();
+			
+			props.saveNBTData(temp);
 			
 			props.sync((EntityPlayerMP)event.entity);
 		}

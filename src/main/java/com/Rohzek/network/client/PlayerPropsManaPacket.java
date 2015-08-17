@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 
-//COMMENTS IN THIS CLASS ADDED BY AUTHOR OF TUTORIAL I FOLLOWED.. Networking is way over my head.
+// This class doesn't actually do anything yet.
 
 public class PlayerPropsManaPacket extends AbstractClientPacket<SyncPlayerPropsPacket>
 {
