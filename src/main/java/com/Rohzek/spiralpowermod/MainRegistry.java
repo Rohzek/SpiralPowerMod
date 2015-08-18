@@ -7,6 +7,7 @@ import com.Rohzek.armor.SPArmors;
 import com.Rohzek.block.SPBlocks;
 import com.Rohzek.crafting.CraftingManager;
 import com.Rohzek.creativetabs.SPCreativeTabs;
+import com.Rohzek.entity.EntityBullet;
 import com.Rohzek.handlers.AchievementHandler;
 import com.Rohzek.handlers.CoreDrillHandler;
 import com.Rohzek.handlers.ExtendedPlayerStatsHandler;
@@ -26,6 +27,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
 
 @Mod(modid = RefStrings.MODID, name = RefStrings.NAME, version = RefStrings.VERSION)
 public class MainRegistry 
@@ -60,7 +62,8 @@ public class MainRegistry
 		FMLCommonHandler.instance().bus().register(new AchievementHandler());
 		// Achievements
 		SPAchievements.mainRegistry();
-		// Messages
+		
+		EntityRegistry.registerModEntity(EntityBullet.class, "EMP", 0, spiralpowermod, 64, 10, true);
 		
 		// FML Event Busses
 		FMLCommonHandler.instance().bus().register(new AchievementHandler()); // Achievements

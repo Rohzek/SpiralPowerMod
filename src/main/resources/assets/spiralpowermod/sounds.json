@@ -1,3 +1,4 @@
 {
-"rifle_fire": {"category": "master","sounds": [{"name": "rifle_fire","stream": false}]}
+"rifle_fire_arrow": {"category": "master","sounds": [{"name": "rifle_fire_arrow","stream": false}]},
+"rifle_fire_normal": {"category": "master","sounds": [{"name": "rifle_fire_normal","stream": false}]}
 }

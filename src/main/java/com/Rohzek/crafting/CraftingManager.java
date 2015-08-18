@@ -41,6 +41,8 @@ public class CraftingManager
 		GameRegistry.addRecipe(new ItemStack(SPItems.spiralPowerChunk), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralDroplet});
 		GameRegistry.addRecipe(new ItemStack(SPBlocks.SpiralPowerBlock), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralPowerChunk});
 		
+		// Ammo Recipes
+		
 		// Tool Recipes
 		GameRegistry.addRecipe(new ItemStack(SPTools.spiralDrill), new Object[]{" X ","XYX"," S ", 'X', Items.iron_ingot, 'Y', SPItems.coreDrill.setContainerItem(SPItems.coreDrill), 'S', Items.stick});
 		GameRegistry.addRecipe(new ItemStack(SPTools.kamKatana), new Object[]{"X","Y","S", 'X', Items.iron_ingot,  'Y', SPItems.spiralPowerChunk, 'S', Items.stick});

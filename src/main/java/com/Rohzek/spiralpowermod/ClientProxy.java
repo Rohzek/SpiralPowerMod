@@ -3,8 +3,9 @@ package com.Rohzek.spiralpowermod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
-
+import com.Rohzek.entity.EntityBullet;
 import com.Rohzek.gui.GuiManaBar;
+import com.Rohzek.renderer.RenderBullet;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -15,10 +16,14 @@ public class ClientProxy extends ServerProxy
 	// Gets Minecraft thread
 	private final Minecraft mc = Minecraft.getMinecraft();
 	
-	// Registers our GUI bar.. it's client side only otherwise would be in main class file.
+	// Render client side only stuff here
 	public void registerRenderInfo()
 	{
+		// Registers our GUI bar
 		MinecraftForge.EVENT_BUS.register(new GuiManaBar(Minecraft.getMinecraft()));
+		
+		// Render the custom bullet projectile entity
+		RenderingRegistry.registerEntityRenderingHandler(EntityBullet.class, new RenderBullet());
 	}
 	
 	// Same with armors. We want to register renderer on client side only.
