@@ -20,6 +20,7 @@ public class SPItems
 	
 	// creates items
 	public static CoreDrill coreDrill;
+	public static BrokenDrill brokenDrill;
 	public static SpiralDroplet spiralDroplet;
 	public static Item spiralPowerChunk;
 	public static Item yokoBullet;
@@ -29,6 +30,7 @@ public class SPItems
 	{
 		// No standard format. Some things handled here, some have their own class. May or may change as items are added and tweaked.
 		coreDrill = new CoreDrill();
+		brokenDrill = new BrokenDrill();
 		spiralDroplet = new SpiralDroplet();
 		spiralPowerChunk = new Item().setUnlocalizedName("spiralPowerChunk").setTextureName(RefStrings.MODID + ":spiralPower").setCreativeTab(SPCreativeTabs.itemsTab);
 		yokoBullet = new Item().setUnlocalizedName("yokoBullet").setTextureName(RefStrings.MODID + ":yokoBullet").setCreativeTab(SPCreativeTabs.itemsTab);
@@ -38,6 +40,7 @@ public class SPItems
 	public static void registerItem()
 	{
 		GameRegistry.registerItem(coreDrill, coreDrill.getUnlocalizedName());
+		GameRegistry.registerItem(brokenDrill, brokenDrill.getUnlocalizedName());
 		GameRegistry.registerItem(spiralDroplet, spiralDroplet.getUnlocalizedName());
 		GameRegistry.registerItem(spiralPowerChunk, spiralPowerChunk.getUnlocalizedName());
 		GameRegistry.registerItem(yokoBullet, yokoBullet.getUnlocalizedName());

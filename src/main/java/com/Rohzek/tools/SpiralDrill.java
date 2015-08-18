@@ -20,8 +20,6 @@ public class SpiralDrill extends ItemPickaxe
 	protected SpiralDrill(ToolMaterial material) 
 	{
 		super(material);
-		// Sets insanely high amount of uses to this item specifically
-		this.setDamage(new ItemStack(SPTools.spiralDrill), -16383);
 		// gives tool style "3D" rendering
 		this.setFull3D();
 		// name of item

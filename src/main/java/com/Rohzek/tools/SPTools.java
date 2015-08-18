@@ -27,6 +27,7 @@ public class SPTools
 	// adds toool material
 	// format: Material name, Mining level (0 wood, 3 diamond, 4 modded.. mines anything, uses, efficiency on intended mateiral, damage vs entity, enchantability
 	public static ToolMaterial spiralPowerMat = EnumHelper.addToolMaterial("Spiral", 4, 3000, 10.0f, 4.5f, 10);
+	public static ToolMaterial spiralDrillMat;
 	
 	// creates items
 	public static Item spiralDrill;
@@ -36,13 +37,22 @@ public class SPTools
 	
 	public static Item yokoRifle;
 	
-	// initializes items and applys extra information on items, if not handled in seperate classes.
+	// initializes items and applys extra information on items. See their individual classes for more information on their attributes.
 	public static void initializeItem()
 	{
-		spiralDrill = new SpiralDrill(spiralPowerMat);
-		kamKatana = new KamKatana(spiralPowerMat).setUnlocalizedName("kamKatana").setTextureName(RefStrings.MODID + ":kamKatana").setCreativeTab(SPCreativeTabs.toolsTab);
-		simonKatana = new SimonKatana(spiralPowerMat).setUnlocalizedName("simonKatana").setTextureName(RefStrings.MODID + ":simonKatana").setCreativeTab(SPCreativeTabs.toolsTab);
-		viralCleaver = new ViralCleaver(spiralPowerMat).setUnlocalizedName("viralCleaver").setTextureName(RefStrings.MODID + ":viralCleaver").setCreativeTab(SPCreativeTabs.toolsTab);
+		if(RefStrings.DEBUG)
+		{
+			spiralDrillMat = EnumHelper.addToolMaterial("SpDrill", 4, 1, 10.0f, 4.5f, 10);
+		}
+		else
+		{
+			spiralDrillMat = EnumHelper.addToolMaterial("SpDrill", 4, 5004, 10.0f, 4.5f, 10);
+		}
+		
+		spiralDrill = new SpiralDrill(spiralDrillMat);
+		kamKatana = new KamKatana(spiralPowerMat);
+		simonKatana = new SimonKatana(spiralPowerMat);
+		viralCleaver = new ViralCleaver(spiralPowerMat);
 		
 		yokoRifle = new YokoRifle();
 	}

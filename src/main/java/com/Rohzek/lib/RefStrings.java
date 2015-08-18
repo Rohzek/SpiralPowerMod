@@ -7,7 +7,7 @@ public class RefStrings
 	
 	public static final String NAME = "Spiral Power Mod";
 	
-	public static final String VERSION = "0.1.9.2";
+	public static final String VERSION = "0.1.10";
 	
 	public static final String CLIENTSIDE = "com.Rohzek.spiralpowermod.ClientProxy";
 	
@@ -15,5 +15,5 @@ public class RefStrings
 	
 	public static final String PACKET_CHANNEL = "spiralpowermod";
 	
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 }
