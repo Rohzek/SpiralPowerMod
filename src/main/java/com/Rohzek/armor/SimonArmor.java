@@ -1,7 +1,6 @@
 package com.Rohzek.armor;
 
 import com.Rohzek.lib.RefStrings;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;

@@ -36,12 +36,37 @@ public class CraftingManager
 		enchantStack = new ItemStack(SPTools.viralCleaver);
 		enchantStack.addEnchantment(Enchantment.sharpness, 4);
 		
-		// Not going into recipe format here.. look up the super class by control clicking .addRecipe() if supported in your IDE.  Eclipse supports it.
 		// Item Recipes
-		GameRegistry.addRecipe(new ItemStack(SPItems.spiralPowerChunk), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralDroplet});
-		GameRegistry.addRecipe(new ItemStack(SPBlocks.SpiralPowerBlock), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralPowerChunk});
+			// Spiral Chunk: 9 spiral droplets
+			GameRegistry.addRecipe(new ItemStack(SPItems.spiralPowerChunk), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralDroplet});
+			// Spiral Block: 9 chunks
+			GameRegistry.addRecipe(new ItemStack(SPBlocks.SpiralPowerBlock), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralPowerChunk});
 		
-		// Ammo Recipes
+		// Misc Recipes
+			// Iron Nuggets: 1 iron ingot = 9 nuggets
+			GameRegistry.addShapelessRecipe(new ItemStack(SPItems.ironNugget, 9), new ItemStack(Items.iron_ingot));
+			// Iron Ingot: 9 iron nuggets into iron ingot
+			GameRegistry.addRecipe(new ItemStack(Items.iron_ingot), new Object[]{"XXX","XXX","XXX", 'X', SPItems.ironNugget});
+			
+			// Ammo Recipes
+			// bullet: 1 tip, 1 primer, 1 spent casing
+			GameRegistry.addShapelessRecipe(new ItemStack(SPItems.yokoBullet, 16), new ItemStack(SPItems.bulletTip), 
+					new ItemStack(SPItems.bulletPrimer), new ItemStack(SPItems.spentCasing));
+			// bullet: box of primers, box of shells, box of tips
+			GameRegistry.addShapelessRecipe(new ItemStack(SPItems.yokoBullet, 16), new ItemStack(SPItems.boxOfPrimers), 
+											new ItemStack(SPItems.boxOfShells), new ItemStack(SPItems.boxOfTips));
+			// Empty Ammo Box: 1 iron ingot + coredrill
+			GameRegistry.addShapelessRecipe(new ItemStack(SPItems.boxOfEmpty), 
+											new ItemStack(Items.iron_ingot), new ItemStack(SPItems.coreDrill));
+			// Box of Primers: 8 primers + 1 empty box
+			GameRegistry.addRecipe(new ItemStack(SPItems.boxOfPrimers), new Object[]{"XXX","XYX","XXX", 'X', SPItems.bulletPrimer, 'Y', SPItems.boxOfEmpty});
+			// box of shells: 8 iron nuggets + core drill
+			GameRegistry.addRecipe(new ItemStack(SPItems.boxOfShells), new Object[]{"XXX","XYX","XXX", 'X', SPItems.ironNugget, 'Y', SPItems.coreDrill});
+			// box of shells: 8 spent casings + empty box
+			GameRegistry.addRecipe(new ItemStack(SPItems.boxOfShells), new Object[]{"XXX","XYX","XXX", 'X', SPItems.spentCasing, 'Y', SPItems.boxOfEmpty});
+			// box of tips: 8 iron nuggets + spiral droplet
+			GameRegistry.addShapelessRecipe(new ItemStack(SPItems.bulletPrimer), 
+											new ItemStack(Items.gunpowder), new ItemStack(SPItems.coreDrill), new ItemStack(Items.paper));
 		
 		// Tool Recipes
 		GameRegistry.addRecipe(new ItemStack(SPTools.spiralDrill), new Object[]{" X ","XYX"," S ", 'X', Items.iron_ingot, 'Y', SPItems.coreDrill.setContainerItem(SPItems.coreDrill), 'S', Items.stick});

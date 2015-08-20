@@ -63,7 +63,7 @@ public class MainRegistry
 		// Achievements
 		SPAchievements.mainRegistry();
 		
-		EntityRegistry.registerModEntity(EntityBullet.class, "EMP", 0, spiralpowermod, 64, 10, true);
+		EntityRegistry.registerModEntity(EntityBullet.class, "BULLET", 0, spiralpowermod, 64, 10, true);
 		
 		// FML Event Busses
 		FMLCommonHandler.instance().bus().register(new AchievementHandler()); // Achievements
