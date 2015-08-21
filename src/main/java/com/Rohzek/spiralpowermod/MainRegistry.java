@@ -8,6 +8,7 @@ import com.Rohzek.block.SPBlocks;
 import com.Rohzek.crafting.CraftingManager;
 import com.Rohzek.creativetabs.SPCreativeTabs;
 import com.Rohzek.entity.EntityBullet;
+import com.Rohzek.gui.SPGuiHandler;
 import com.Rohzek.handlers.AchievementHandler;
 import com.Rohzek.handlers.CoreDrillHandler;
 import com.Rohzek.handlers.ExtendedPlayerStatsHandler;
@@ -27,6 +28,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.EntityRegistry;
 
 @Mod(modid = RefStrings.MODID, name = RefStrings.NAME, version = RefStrings.VERSION)
@@ -78,6 +80,7 @@ public class MainRegistry
 		
 		// Register Renders. As I understand it: THIS HAS TO BE DONE LAST. NO IFS ANDS OR ASSES
 		// But uh... I could be wrong.
+		proxyServer.registerTileEntity();
 		proxyServer.registerRenderInfo();
 	}
 	
@@ -85,11 +88,12 @@ public class MainRegistry
 	@EventHandler
 	public static void load(FMLInitializationEvent event)
 	{
+		NetworkRegistry.INSTANCE.registerGuiHandler(spiralpowermod, new SPGuiHandler());
+		//proxyServer.RegisterNetwork();
 	}
 	
 	// As far as I can tell nothing needs to be done in this, it's all done in PreLoad.
 	@EventHandler
 	public static void PostLoad(FMLPostInitializationEvent PostEvent)
-	{
-	}
+	{}
 }

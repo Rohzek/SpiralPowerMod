@@ -16,7 +16,7 @@ public class CreativeTabBlock extends CreativeTabs
 	@Override
 	public Item getTabIconItem() 
 	{
-		return Item.getItemFromBlock(SPBlocks.SpiralPowerBlock);
+		return Item.getItemFromBlock(SPBlocks.spiralPowerBlock);
 	}
 
 }

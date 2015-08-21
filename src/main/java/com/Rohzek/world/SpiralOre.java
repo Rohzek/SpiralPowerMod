@@ -59,7 +59,7 @@ public class SpiralOre implements IWorldGenerator
 	// to add ores to the overworld
 	private void generateOverworld(Random random, int chunkX, int chunkZ, World world) 
 	{
-		addOre(SPBlocks.SpiralPowerBlock, Blocks.stone, random, world, chunkX, chunkZ, 5, 100, 10, 20, 20);
+		addOre(SPBlocks.spiralPowerBlock, Blocks.stone, random, world, chunkX, chunkZ, 5, 100, 10, 20, 20);
 	}
 
 	// to add ores to the nether

@@ -3,6 +3,8 @@ item.brokenDrill.name=Broken Spiral Drill
 item.spiralDroplet.name=Raw Spiral Power
 item.spiralPowerChunk.name=Spiral Power Condensed Chunk
 
+item.ironNugget.name=Iron Nugget
+
 item.yokoBullet.name=Bullet
 item.spentCasing.name=Spent Shell Casing
 item.bulletTip.name=Bullet Tip
@@ -36,6 +38,7 @@ item.simonLegs.name=Simon's Pants
 item.simonBoots.name=Simon's Boots
 
 tile.spiralBlock.name=Condensed Block of Spiral Power
+tile.spiralFurnace.name=Spiral Furnace
 
 itemGroup.itemsTab=Spiral Power Items
 itemGroup.blocksTab=Spiral Power Blocks

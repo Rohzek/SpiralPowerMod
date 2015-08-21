@@ -19,20 +19,25 @@ public class SPBlocks
 		registerBlock();
 	}
 	
-	public static Block SpiralPowerBlock;
+	public static Block spiralPowerBlock;
+	public static Block spiralFurnace;
+	public static Block spiralFurnaceActive;
 	
 	// initalizes/creates block material
 	public static void initializeBlock()
 	{
-		// This is the other way to create new things, not used in the armors. We assign too many things to blocks to really put them all here
+		spiralFurnace = new SpiralFurnace(false).setBlockName("spiralFurnace").setCreativeTab(SPCreativeTabs.blocksTab);
+		spiralFurnaceActive = new SpiralFurnace(true).setBlockName("spiralFurnaceActive");
 		
 		// Format: Unique based on type of block, see classes for more details
-		SpiralPowerBlock = new SpiralBlock(Material.ground, 0, 4, 8);
+		spiralPowerBlock = new SpiralBlock(Material.ground, 0, 4, 8);
 	}
 	
 	// Registers item into game: item, name
 	public static void registerBlock()
 	{
-		GameRegistry.registerBlock(SpiralPowerBlock, SpiralPowerBlock.getUnlocalizedName());
+		GameRegistry.registerBlock(spiralPowerBlock, spiralPowerBlock.getUnlocalizedName());
+		GameRegistry.registerBlock(spiralFurnace, spiralFurnace.getUnlocalizedName());
+		GameRegistry.registerBlock(spiralFurnaceActive, spiralFurnaceActive.getUnlocalizedName());
 	}
 }

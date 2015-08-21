@@ -40,7 +40,7 @@ public class CraftingManager
 			// Spiral Chunk: 9 spiral droplets
 			GameRegistry.addRecipe(new ItemStack(SPItems.spiralPowerChunk), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralDroplet});
 			// Spiral Block: 9 chunks
-			GameRegistry.addRecipe(new ItemStack(SPBlocks.SpiralPowerBlock), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralPowerChunk});
+			GameRegistry.addRecipe(new ItemStack(SPBlocks.spiralPowerBlock), new Object[]{"XXX","XXX","XXX", 'X', SPItems.spiralPowerChunk});
 		
 		// Misc Recipes
 			// Iron Nuggets: 1 iron ingot = 9 nuggets
@@ -65,6 +65,8 @@ public class CraftingManager
 			// box of shells: 8 spent casings + empty box
 			GameRegistry.addRecipe(new ItemStack(SPItems.boxOfShells), new Object[]{"XXX","XYX","XXX", 'X', SPItems.spentCasing, 'Y', SPItems.boxOfEmpty});
 			// box of tips: 8 iron nuggets + spiral droplet
+			GameRegistry.addRecipe(new ItemStack(SPItems.boxOfPrimers), new Object[]{"XXX","XYX","XXX", 'X', SPItems.ironNugget, 'Y', SPItems.spiralDroplet});
+			// Bullet Primer: gunpowder, core drill, paper
 			GameRegistry.addShapelessRecipe(new ItemStack(SPItems.bulletPrimer), 
 											new ItemStack(Items.gunpowder), new ItemStack(SPItems.coreDrill), new ItemStack(Items.paper));
 		
