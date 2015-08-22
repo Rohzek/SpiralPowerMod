@@ -1,5 +1,8 @@
 package com.Rohzek.spiralpowermod;
 
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 import net.minecraftforge.common.MinecraftForge;
 
 import com.Rohzek.achievements.SPAchievements;
