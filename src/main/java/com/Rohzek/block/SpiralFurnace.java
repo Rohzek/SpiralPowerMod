@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,7 +29,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SpiralFurnace extends BlockContainer
 {
+	@SideOnly(Side.CLIENT)
 	private IIcon top;
+	@SideOnly(Side.CLIENT)
 	private IIcon front;
 	
 	private static boolean isBurning;
@@ -38,6 +42,8 @@ public class SpiralFurnace extends BlockContainer
 	{
 		super(Material.rock);
 		isBurning2 = isActive;
+		this.setHardness(5.0f);
+		this.setResistance(17.5f);
 	}
 
 	@Override
@@ -52,19 +58,7 @@ public class SpiralFurnace extends BlockContainer
 	@Override
 	public IIcon getIcon(int side, int meta)
 	{
-		if(side == 1)
-		{
-			return top;
-		}
-		else if(side == 3)
-		{
-			return front;
-		}
-		
-		else
-		{
-			return this.blockIcon;
-		}
+		return side == 1 ? this.top : (side == 0 ? this.top : (side != meta ? this.blockIcon : this.front));
 	}
 	
 	@Override
@@ -243,6 +237,7 @@ public class SpiralFurnace extends BlockContainer
 		super.breakBlock(world, x, y, z, block, meta);
 	}
 	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
 	{
@@ -250,31 +245,45 @@ public class SpiralFurnace extends BlockContainer
 		{
 			int dir = world.getBlockMetadata(x, y, z);
 			
-			float xx = (float) x + 0.5f, yy = (float) y + rand.nextFloat() * 6.0f / 16.0f, zz = (float) z + 0.5f, xxx = random.nextFloat() * 0.3f;
+            float f = (float)x + 0.5F;
+            float f1 = (float)y + 0.0F + rand.nextFloat() * 6.0F / 16.0F;
+            float f2 = (float)z + 0.5F;
+            float f3 = 0.52F;
+            float f4 = rand.nextFloat() * 0.6F - 0.3F;
 			
-			if(dir == 4)
-			{
-				world.spawnParticle("smoke", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-				world.spawnParticle("flame", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-			}
-			else if(dir == 5)
-			{
-				world.spawnParticle("smoke", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-				world.spawnParticle("flame", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-			}
-			else if(dir == 3)
-			{
-				world.spawnParticle("smoke", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-				world.spawnParticle("flame", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-			}
-			else if(dir == 2)
-			{
-				world.spawnParticle("smoke", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-				world.spawnParticle("flame", (double) (xx - zz), (double) yy, (double) (zz + xxx), 0.0f, 0.0f, 0.0f);
-			}
+            if (dir == 4)
+            {
+            	world.spawnParticle("smoke", (double)(f - f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+            	world.spawnParticle("flame", (double)(f - f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+            }
+            else if (dir == 5)
+            {
+            	world.spawnParticle("smoke", (double)(f + f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+            	world.spawnParticle("flame", (double)(f + f3), (double)f1, (double)(f2 + f4), 0.0D, 0.0D, 0.0D);
+            }
+            else if (dir == 2)
+            {
+            	world.spawnParticle("smoke", (double)(f + f4), (double)f1, (double)(f2 - f3), 0.0D, 0.0D, 0.0D);
+            	world.spawnParticle("flame", (double)(f + f4), (double)f1, (double)(f2 - f3), 0.0D, 0.0D, 0.0D);
+            }
+            else if (dir == 3)
+            {
+            	world.spawnParticle("smoke", (double)(f + f4), (double)f1, (double)(f2 + f3), 0.0D, 0.0D, 0.0D);
+            	world.spawnParticle("flame", (double)(f + f4), (double)f1, (double)(f2 + f3), 0.0D, 0.0D, 0.0D);
+            }
 		}
 	}
 
+    public boolean hasComparatorInputOverride()
+    {
+        return true;
+    }
+
+    public int getComparatorInputOverride(World world, int par2, int par3, int par4, int par5)
+    {
+        return Container.calcRedstoneFromInventory((IInventory)world.getTileEntity(par2, par3, par4));
+    }
+	 
 	@Override
 	public TileEntity createNewTileEntity(World world, int par2) 
 	{

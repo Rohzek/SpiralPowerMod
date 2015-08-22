@@ -23,7 +23,7 @@ public class SmeltingRecipes
 		return SMELTING_BASE;
 	}
 	
-	// Add Recipes Here!
+	// Add Custom Recipes Here!
 	private SmeltingRecipes()
 	{
 		this.addRecipe(SPItems.spentCasing, new ItemStack(SPItems.ironNugget), 0.8f);

@@ -61,7 +61,7 @@ public class EntityBullet extends EntityThrowable
 	
 	// This is the velocity of the moving entity... No clue why it never got changed to getVelocity or something like that.
 	// Default value is 1.5f... We wanna speed this up.
-	// The faster it goes, the less accurate it is...
+	// The faster it goes, the less accurate the rendering is...
 	@Override
 	public float func_70182_d()
     {

@@ -27,7 +27,7 @@ public class SPBlocks
 	public static void initializeBlock()
 	{
 		spiralFurnace = new SpiralFurnace(false).setBlockName("spiralFurnace").setCreativeTab(SPCreativeTabs.blocksTab);
-		spiralFurnaceActive = new SpiralFurnace(true).setBlockName("spiralFurnaceActive");
+		spiralFurnaceActive = new SpiralFurnace(true).setBlockName("spiralFurnaceActive").setLightLevel(1.0f);
 		
 		// Format: Unique based on type of block, see classes for more details
 		spiralPowerBlock = new SpiralBlock(Material.ground, 0, 4, 8);
