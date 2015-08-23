@@ -27,8 +27,11 @@ public class ContainerSpiralFurnace extends Container
 	public ContainerSpiralFurnace(InventoryPlayer player, TileEntitySpiralFurnace tileEntity)
 	{
 		this.spiralFurnace = tileEntity;
-		this.addSlotToContainer(new Slot(tileEntity, 0, 56, 35));
-		this.addSlotToContainer(new Slot(tileEntity, 1, 8, 62));
+		// This is the Input slot
+		this.addSlotToContainer(new Slot(tileEntity, 0, 54, 35));
+		// This is the fuel input slot
+		this.addSlotToContainer(new Slot(tileEntity, 1, 8, 61));
+		// This is the output slot
 		this.addSlotToContainer(new SlotFurnace(player.player, tileEntity, 2, 116, 35));
 		
 		int i;
@@ -145,7 +148,7 @@ public class ContainerSpiralFurnace extends Container
 				
 				else if(TileEntitySpiralFurnace.isItemFuel(itemStack1))
 				{
-					if(!this.mergeItemStack(itemStack1, 1, 2, false)) // this is things?
+					if(!this.mergeItemStack(itemStack1, 1, 2, false))
 					{
 						return null;
 					}

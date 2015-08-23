@@ -55,17 +55,14 @@ public class GuiSpiralFurnace extends GuiContainer
 		// If we're actively cooking something we want to animate the arrow and burn meter
 		if(this.furnace.isBurning())
 		{
-			// This handles the fire icon for normal GUIs, and our mana bar on ours.
-			int k = this.furnace.getBurnTimeRemainingScaled(40);
-			int j = 40 - k;
-			
-			//                      there to begin drawing graphic  where graphic starts
-			drawTexturedModalRect(guiLeft + 29, guiTop + 65, 176, 0, 40 - j, 10);
+			int i1 = furnace.getBurnTimeRemainingScaled(45);
+			//       Where to draw from left, fromm top        ,area for image from x, from y
+			drawTexturedModalRect(guiLeft + 10, guiTop + 57 - i1, 177, 43 - i1, 15, i1);
 		}
 		
 		// This handles the progress arrow in the middle
 		int k = this.furnace.getCookProgressScaled(24);
-		drawTexturedModalRect(guiLeft + 79, guiTop + 34, 176, 10, k + 1, 16);
+		drawTexturedModalRect(guiLeft + 79, guiTop + 34, 176, 43, k + 1, 60);
 	}
 
 }

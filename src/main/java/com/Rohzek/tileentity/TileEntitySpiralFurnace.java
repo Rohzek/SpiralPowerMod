@@ -34,7 +34,7 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	private ItemStack[] slots = new ItemStack[3];
 	
 	// how fast the furnace completes it's task
-	public int furnaceSpeed = 250;
+	public int furnaceSpeed = 150;
 	
 	public int burnTime;
 	public int currentBurnTime;
