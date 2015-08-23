@@ -22,7 +22,7 @@ public class CoreDrill extends Item
 	{
 		super();
 		this.setUnlocalizedName("coreDrill");
-		this.setTextureName(RefStrings.MODID + ":coreDrill");
+		this.setTextureName(RefStrings.RESOURCEID + "coreDrill");
 		this.setCreativeTab(SPCreativeTabs.itemsTab);
 		// When used in a crafting recipe, return the coredrill back
 		this.setContainerItem(SPItems.coreDrill);

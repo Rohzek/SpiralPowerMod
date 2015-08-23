@@ -22,18 +22,23 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+// More logic behind our custom furnace.. This one handles increasing/decrementing stacks and smelting logic
 public class TileEntitySpiralFurnace extends TileEntity implements ISidedInventory
 {
 	
+	// Where the slots are
 	private static final int[] slotsTop = new int[]{0};
 	private static final int[] slotsBottom = new int[]{2, 1};
 	private static final int[] slotsSides = new int[]{1};
 	
-	private ItemStack[] itemStacks = new ItemStack[3];
+	private ItemStack[] slots = new ItemStack[3];
 	
-	public int furnaceBurnTime;
+	// how fast the furnace completes it's task
+	public int furnaceSpeed = 250;
+	
+	public int burnTime;
 	public int currentBurnTime;
-	public int furnaceCookTime;
+	public int cookTime;
 	
 	private String furnaceName;
 
@@ -46,35 +51,35 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	@Override
 	public int getSizeInventory() 
 	{
-		return this.itemStacks.length;
+		return this.slots.length;
 	}
 
 	@Override
 	public ItemStack getStackInSlot(int slot) 
 	{
-		return this.itemStacks[slot];
+		return this.slots[slot];
 	}
 
 	@Override
 	public ItemStack decrStackSize(int par1, int par2) 
 	{
-		if(this.itemStacks[par1] != null)
+		if(this.slots[par1] != null)
 		{
 			ItemStack itemStack;
 			
-			if(this.itemStacks[par1].stackSize <= par2)
+			if(this.slots[par1].stackSize <= par2)
 			{
-				itemStack = this.itemStacks[par1];
-				this.itemStacks[par1] = null;
+				itemStack = this.slots[par1];
+				this.slots[par1] = null;
 				return itemStack;
 			}
 			else
 			{
-				itemStack = this.itemStacks[par1].splitStack(par2);
+				itemStack = this.slots[par1].splitStack(par2);
 				
-				if(this.itemStacks[par1].stackSize == 0)
+				if(this.slots[par1].stackSize == 0)
 				{
-					this.itemStacks[par1] = null;
+					this.slots[par1] = null;
 				}
 				
 				return itemStack;
@@ -89,11 +94,11 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot) 
 	{
-		if(this.itemStacks[slot] != null)
+		if(this.slots[slot] != null)
 		{
-			ItemStack itemStack = this.itemStacks[slot];
+			ItemStack itemStack = this.slots[slot];
 			
-			this.itemStacks[slot] = null;
+			this.slots[slot] = null;
 			return itemStack;
 		}
 		else
@@ -105,7 +110,7 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	@Override
 	public void setInventorySlotContents(int par1, ItemStack itemStack) 
 	{
-		this.itemStacks[par1] = itemStack;
+		this.slots[par1] = itemStack;
 		
 		if(itemStack != null && itemStack.stackSize > this.getInventoryStackLimit())
 		{
@@ -130,69 +135,11 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	{
 		return 64;
 	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound compound)
-	{
-		super.readFromNBT(compound);
-		NBTTagList list = compound.getTagList("Items", 10);
-		this.itemStacks = new ItemStack[this.getSizeInventory()];
-		
-		for(int i = 0; i < list.tagCount(); ++i)
-		{
-			NBTTagCompound comp = list.getCompoundTagAt(i);
-			byte byte0 = comp.getByte("slot");
-			
-			if(byte0 >= 0 && byte0 < this.itemStacks.length)
-			{
-				this.itemStacks[byte0] = ItemStack.loadItemStackFromNBT(comp);
-			}
-		}
-		
-		this.furnaceBurnTime = compound.getShort("burnTime");
-		this.furnaceCookTime = compound.getShort("cookTime");
-		
-		this.currentBurnTime = getItemBurnTime(this.itemStacks[1]);
-		
-		if(compound.hasKey("customName", 8))
-		{
-			this.furnaceName = compound.getString("customName");
-		}
-	}
-	
-	@Override
-	public void writeToNBT(NBTTagCompound compound)
-	{
-		super.writeToNBT(compound);
-		
-		compound.setShort("burnTime", (short) this.furnaceBurnTime);
-		compound.setShort("cookTime", (short) this.furnaceCookTime);
-		
-		NBTTagList list = new NBTTagList();
-		
-		for(int i = 0; i < this.itemStacks.length; ++i)
-		{
-			if(this.itemStacks[i] != null)
-			{
-				NBTTagCompound comp = new NBTTagCompound();
-				comp.setByte("slot", (byte) i);
-				this.itemStacks[i].writeToNBT(comp);
-				list.appendTag(comp);
-			}
-		}
-		
-		compound.setTag("items", list);
-		
-		if(this.hasCustomInventoryName())
-		{
-			compound.setString("customName", this.furnaceName);
-		}
-	}
 	
 	@SideOnly(Side.CLIENT)
 	public int getCookProgressScaled(int par1)
 	{
-		return this.furnaceCookTime * par1 / 200;
+		return this.cookTime * par1 / this.furnaceSpeed;
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -200,45 +147,45 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	{
 		if(this.currentBurnTime == 0)
 		{
-			this.currentBurnTime = 200;
+			this.currentBurnTime = this.furnaceSpeed;
 		}
 		
-		return this.furnaceBurnTime * par1 / this.currentBurnTime;
+		return this.burnTime * par1 / this.currentBurnTime;
 	}
 	
 	public boolean isBurning()
 	{
-		return this.furnaceBurnTime > 0;
+		return this.burnTime > 0;
 	}
 	
 	@Override
 	public void updateEntity()
 	{
-		boolean flag0 = this.furnaceBurnTime > 0;
+		boolean flag0 = this.burnTime > 0;
 		boolean flag1 = false;
 		
-		if(this.furnaceBurnTime > 0)
+		if(this.burnTime > 0)
 		{
-			--this.furnaceBurnTime;
+			--this.burnTime;
 		}
 		
 		if(!this.worldObj.isRemote)
 		{
-			if(this.furnaceBurnTime == 0 && this.canSmelt())
+			if(this.burnTime == 0 && this.canSmelt())
 			{
-				this.currentBurnTime = this.furnaceBurnTime = getItemBurnTime(this.itemStacks[1]);
+				this.currentBurnTime = this.burnTime = getItemBurnTime(this.slots[1]);
 				
-				if(this.furnaceBurnTime > 0)
+				if(this.burnTime > 0)
 				{
 					flag1 = true;
 					
-					if(this.itemStacks[1] != null)
+					if(this.slots[1] != null)
 					{
-						--this.itemStacks[1].stackSize;
+						--this.slots[1].stackSize;
 						
-						if(this.itemStacks[1].stackSize == 0)
+						if(this.slots[1].stackSize == 0)
 						{
-							this.itemStacks[1] = itemStacks[1].getItem().getContainerItem(this.itemStacks[1]);
+							this.slots[1] = slots[1].getItem().getContainerItem(this.slots[1]);
 						}
 					}
 				}
@@ -246,11 +193,11 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 			
 			if(this.isBurning() && this.canSmelt())
 			{
-				++this.furnaceCookTime;
+				++this.cookTime;
 				
-				if(this.furnaceCookTime == 200)
+				if(this.cookTime == 200)
 				{
-					this.furnaceCookTime = 0;
+					this.cookTime = 0;
 					this.smeltItem();
 					flag1 = true;
 				}
@@ -258,14 +205,14 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 			
 			else
 			{
-				this.furnaceCookTime = 0;
+				this.cookTime = 0;
 			}
 		}
 		
-		if(flag0 != this.furnaceBurnTime > 0)
+		if(flag0 != this.burnTime > 0)
 		{
 			flag1 = true;
-			SpiralFurnace.updateBlockState(this.furnaceBurnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			SpiralFurnace.updateBlockState(this.burnTime > 0, this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 		}
 		
 		if(flag1)
@@ -274,63 +221,65 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 		}
 	}
 	
+	// Checks if an Item can smelt.
 	private boolean canSmelt()
 	{
-		if(this.itemStacks[0] == null)
+		if(this.slots[0] == null)
 		{
 			return false;
 		}
 		else
 		{
-			ItemStack itemStack = SmeltingRecipes.smelting().getSmeltingResult(this.itemStacks[0]);
+			ItemStack itemStack = SmeltingRecipes.smelting().getSmeltingResult(this.slots[0]);
 			
 			if(itemStack == null)
 			{
 				return false;
 			}
 			
-			if(this.itemStacks[2] == null)
+			if(this.slots[2] == null)
 			{
 				return true;
 			}
 			
-			if(!this.itemStacks[2].isItemEqual(itemStack))
+			if(!this.slots[2].isItemEqual(itemStack))
 			{
 				return false;
 			}
 			
-			int result = itemStacks[2].stackSize + itemStack.stackSize;
+			int result = slots[2].stackSize + itemStack.stackSize;
 			
-			return result < getInventoryStackLimit() && result <= this.itemStacks[2].getMaxStackSize();
+			return result < getInventoryStackLimit() && result <= this.slots[2].getMaxStackSize();
 		}
 	}
 	
+	// Smelts the item
 	public void smeltItem()
 	{
 		if(this.canSmelt())
 		{
-			ItemStack itemStack = SmeltingRecipes.smelting().getSmeltingResult(this.itemStacks[0]);
+			ItemStack itemStack = SmeltingRecipes.smelting().getSmeltingResult(this.slots[0]);
 			
-			if(this.itemStacks[2] == null)
+			if(this.slots[2] == null)
 			{
-				this.itemStacks[2] = itemStack.copy();
+				this.slots[2] = itemStack.copy();
 			}
 			
-			else if(this.itemStacks[2].getItem() == itemStack.getItem())
+			else if(this.slots[2].getItem() == itemStack.getItem())
 			{
-				this.itemStacks[2].stackSize += itemStack.stackSize;
+				this.slots[2].stackSize += itemStack.stackSize;
 			}
 			
-			--this.itemStacks[0].stackSize;
+			--this.slots[0].stackSize;
 			
-			if(this.itemStacks[0].stackSize == 0)
+			if(this.slots[0].stackSize == 0)
 			{
-				this.itemStacks[0] = null;
+				this.slots[0] = null;
 			}
 		}
 	}
 	
-	// Here you can choose what to burn and how long!
+	// Here you can choose what to burn and how long! Maybe where custom fuel goes for "machinery"?
 	public static int getItemBurnTime(ItemStack itemStack)
 	{
 		if(itemStack == null)
@@ -343,22 +292,22 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 			
 			if(item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.air)
 			{
+				// Temp fuels... Later we don't want fuel at all.
 				Block block = Block.getBlockFromItem(item);
 				
 				if(block == SPBlocks.spiralPowerBlock)
 				{
 					return 300;
 				}
-				
-				else if(item == SPItems.spiralPowerChunk)
-				{
-					return 1600;
-				}
-				
-				return GameRegistry.getFuelValue(itemStack);
 			}
+			
+			if(item == SPItems.spiralPowerChunk)
+			{
+				return 150;
+			}
+			
+			return GameRegistry.getFuelValue(itemStack);
 		}
-		return 0;
 	}
 	
 	public static boolean isItemFuel(ItemStack itemStack)
@@ -381,9 +330,9 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	{}
 
 	@Override
-	public boolean isItemValidForSlot(int par1, ItemStack itemStack) 
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) 
 	{
-		return par1 == 2 ? false : par1 == 1 ? isItemFuel(itemStack) : true;
+		return slot == 2 ? false : slot == 1 ? isItemFuel(itemStack) : true;
 	}
 
 	@Override
@@ -403,5 +352,66 @@ public class TileEntitySpiralFurnace extends TileEntity implements ISidedInvento
 	{
 		return par3 != 0 || par1 != 1 || itemStack.getItem() == Items.bucket;
 	}
-
+	
+	@Override
+	public void readFromNBT(NBTTagCompound comp)
+	{
+		super.readFromNBT(comp);
+		
+		NBTTagList list = comp.getTagList("items", 10);
+		
+		this.slots = new ItemStack[this.getSizeInventory()];
+		
+		for(int i = 0; i < list.tagCount(); i++)
+		{
+			NBTTagCompound compound = (NBTTagCompound) list.getCompoundTagAt(i);
+			
+			byte b0 = compound.getByte("slot");
+			
+			if(b0 >= 0 && b0 < this.slots.length)
+			{
+				this.slots[b0] = ItemStack.loadItemStackFromNBT(compound);
+			}
+		}
+		
+		this.burnTime = (int)comp.getShort("burnTime");
+		this.cookTime = (int)comp.getShort("cookTime");
+		this.currentBurnTime = (int)comp.getShort("currentBurnTime");
+		
+		if(comp.hasKey("customName"))
+		{
+			this.furnaceName = comp.getString("customName");
+		}
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound comp)
+	{
+		super.writeToNBT(comp);
+		
+		NBTTagList list = new NBTTagList();
+		
+		for(int i = 0; i < this.slots.length; i++)
+		{
+			if(this.slots[i] != null)
+			{
+				NBTTagCompound compound = new NBTTagCompound();
+				
+				compound.setByte("slot", (byte) i);
+				
+				this.slots[i].writeToNBT(compound);
+				list.appendTag(compound);
+			}
+		}
+		comp.setTag("items", list);
+		
+		comp.setShort("burnTime", (short)this.burnTime);
+		comp.setShort("cookTime", (short)this.cookTime);
+		comp.setShort("currentBurnTime", (short)this.currentBurnTime);
+		
+		if(this.hasCustomInventoryName())
+		{
+			comp.setString("customName", this.furnaceName);
+		}
+	}
 }

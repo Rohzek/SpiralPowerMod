@@ -10,9 +10,11 @@ import org.lwjgl.opengl.GL11;
 import com.Rohzek.lib.RefStrings;
 import com.Rohzek.models.ModelBullet;
 
+// Renders bullet based on Model info. I don't know a whole lot about what this does.
 public class RenderBullet extends Render
 {
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":" + "/textures/entity/bulletProjectile.png");
+	
+	private static final ResourceLocation texture = new ResourceLocation(RefStrings.RESOURCEID + "textures/entity/bulletProjectile.png");
 	
 	private ModelBase model;
 	 

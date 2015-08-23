@@ -23,7 +23,7 @@ public class SpiralDroplet extends Item
 	{
 		super();
 		this.setUnlocalizedName("spiralDroplet");
-		this.setTextureName(RefStrings.MODID + ":spiralDroplet");
+		this.setTextureName(RefStrings.RESOURCEID + "spiralDroplet");
 		this.setCreativeTab(SPCreativeTabs.itemsTab);
 		
 	}

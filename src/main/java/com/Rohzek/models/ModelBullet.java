@@ -4,6 +4,8 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
+// Model as imported (and tweaked to remove errors) straight out of Techne
+// Not sure what's going on here so... Good luck.
 public class ModelBullet extends ModelBase
 {
 	ModelRenderer Shape1;

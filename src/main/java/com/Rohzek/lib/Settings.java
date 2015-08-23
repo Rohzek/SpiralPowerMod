@@ -1,9 +1,5 @@
 package com.Rohzek.lib;
 
+// Doesn't do anything yet but will one day call for configs and shit I think
 public class Settings 
-{
-	public static class Debug
-    {
-        public static boolean logTraceToInfo;
-    }
-}
+{}

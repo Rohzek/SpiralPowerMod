@@ -3,9 +3,11 @@ package com.Rohzek.spiralpowermod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
+
 import com.Rohzek.entity.EntityBullet;
 import com.Rohzek.gui.GuiManaBar;
 import com.Rohzek.renderer.RenderBullet;
+import com.Rohzek.util.LogHelper;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
@@ -19,6 +21,8 @@ public class ClientProxy extends ServerProxy
 	// Render client side only stuff here
 	public void registerRenderInfo()
 	{
+		LogHelper.log("Registering Entities");
+		
 		// Registers our GUI bar
 		MinecraftForge.EVENT_BUS.register(new GuiManaBar(Minecraft.getMinecraft()));
 		
@@ -29,6 +33,7 @@ public class ClientProxy extends ServerProxy
 	// Same with armors. We want to register renderer on client side only.
 	public int addArmor(String armor)
 	{
+		LogHelper.log("Registering Custom Armor Renderers");
 		return RenderingRegistry.addNewArmourRendererPrefix(armor);
 	}
 	
@@ -36,6 +41,8 @@ public class ClientProxy extends ServerProxy
 	@Override
 	public EntityPlayer getPlayerEntity(MessageContext ctx)
 	{
+		LogHelper.log("Packet asked for side, returning Client");
+		
 		return (ctx.side.isClient() ? mc.thePlayer : super.getPlayerEntity(ctx));
 	}
 }

@@ -43,18 +43,18 @@ public class SPItems
 		coreDrill = new CoreDrill();
 		brokenDrill = new BrokenDrill();
 		spiralDroplet = new SpiralDroplet();
-		spiralPowerChunk = new Item().setUnlocalizedName("spiralPowerChunk").setTextureName(RefStrings.MODID + ":spiralPower").setCreativeTab(SPCreativeTabs.itemsTab);
+		spiralPowerChunk = new Item().setUnlocalizedName("spiralPowerChunk").setTextureName(RefStrings.RESOURCEID + "spiralPower").setCreativeTab(SPCreativeTabs.itemsTab);
 		
-		ironNugget = new Item().setUnlocalizedName("ironNugget").setTextureName(RefStrings.MODID + ":ironNugget").setCreativeTab(CreativeTabs.tabMisc);
+		ironNugget = new Item().setUnlocalizedName("ironNugget").setTextureName(RefStrings.RESOURCEID + "ironNugget").setCreativeTab(CreativeTabs.tabMisc);
 		
-		yokoBullet = new Item().setUnlocalizedName("yokoBullet").setTextureName(RefStrings.MODID + ":yokoBullet").setCreativeTab(SPCreativeTabs.itemsTab);
-		spentCasing = new Item().setUnlocalizedName("spentCasing").setTextureName(RefStrings.MODID + ":spentCasing").setCreativeTab(SPCreativeTabs.itemsTab);
-		bulletTip = new Item().setUnlocalizedName("bulletTip").setTextureName(RefStrings.MODID + ":bulletTip").setCreativeTab(SPCreativeTabs.itemsTab);
-		bulletPrimer = new Item().setUnlocalizedName("bulletPrimer").setTextureName(RefStrings.MODID + ":bulletPrimer").setCreativeTab(SPCreativeTabs.itemsTab);
-		boxOfShells = new Item().setUnlocalizedName("boxOfShells").setTextureName(RefStrings.MODID + ":boxOfShells").setCreativeTab(SPCreativeTabs.itemsTab);
-		boxOfTips = new Item().setUnlocalizedName("boxOfTips").setTextureName(RefStrings.MODID + ":boxOfTips").setCreativeTab(SPCreativeTabs.itemsTab);
-		boxOfPrimers = new Item().setUnlocalizedName("boxOfPrimers").setTextureName(RefStrings.MODID + ":boxOfPrimers").setCreativeTab(SPCreativeTabs.itemsTab);
-		boxOfEmpty = new Item().setUnlocalizedName("boxOfEmpty").setTextureName(RefStrings.MODID + ":boxOfEmpty").setCreativeTab(SPCreativeTabs.itemsTab);
+		yokoBullet = new Item().setUnlocalizedName("yokoBullet").setTextureName(RefStrings.RESOURCEID + "yokoBullet").setCreativeTab(SPCreativeTabs.itemsTab);
+		spentCasing = new Item().setUnlocalizedName("spentCasing").setTextureName(RefStrings.RESOURCEID + "spentCasing").setCreativeTab(SPCreativeTabs.itemsTab);
+		bulletTip = new Item().setUnlocalizedName("bulletTip").setTextureName(RefStrings.RESOURCEID + "bulletTip").setCreativeTab(SPCreativeTabs.itemsTab);
+		bulletPrimer = new Item().setUnlocalizedName("bulletPrimer").setTextureName(RefStrings.RESOURCEID + "bulletPrimer").setCreativeTab(SPCreativeTabs.itemsTab);
+		boxOfShells = new Item().setUnlocalizedName("boxOfShells").setTextureName(RefStrings.RESOURCEID + "boxOfShells").setCreativeTab(SPCreativeTabs.itemsTab);
+		boxOfTips = new Item().setUnlocalizedName("boxOfTips").setTextureName(RefStrings.RESOURCEID + "boxOfTips").setCreativeTab(SPCreativeTabs.itemsTab);
+		boxOfPrimers = new Item().setUnlocalizedName("boxOfPrimers").setTextureName(RefStrings.RESOURCEID + "boxOfPrimers").setCreativeTab(SPCreativeTabs.itemsTab);
+		boxOfEmpty = new Item().setUnlocalizedName("boxOfEmpty").setTextureName(RefStrings.RESOURCEID + "boxOfEmpty").setCreativeTab(SPCreativeTabs.itemsTab);
 	}
 	
 	// Adds items to game registry.

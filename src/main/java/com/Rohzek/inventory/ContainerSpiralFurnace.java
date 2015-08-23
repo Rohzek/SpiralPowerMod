@@ -14,6 +14,7 @@ import com.Rohzek.tileentity.TileEntitySpiralFurnace;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+// This is what gives the slots to the furnace and handles transferring slots, and the progress bar info being sent to client
 public class ContainerSpiralFurnace extends Container
 {
 
@@ -22,12 +23,14 @@ public class ContainerSpiralFurnace extends Container
 	private int lastBurnTime;
 	private int lastItemBurnTime;
 	
+	// We set 3 slots here
 	public ContainerSpiralFurnace(InventoryPlayer player, TileEntitySpiralFurnace tileEntity)
 	{
 		this.spiralFurnace = tileEntity;
-		this.addSlotToContainer(new Slot(tileEntity, 0, 56, 17));
-		this.addSlotToContainer(new Slot(tileEntity, 1, 56, 53));
+		this.addSlotToContainer(new Slot(tileEntity, 0, 56, 35));
+		this.addSlotToContainer(new Slot(tileEntity, 1, 8, 62));
 		this.addSlotToContainer(new SlotFurnace(player.player, tileEntity, 2, 116, 35));
+		
 		int i;
 		
 		for(i = 0; i < 3; ++i)
@@ -44,15 +47,17 @@ public class ContainerSpiralFurnace extends Container
 		}
 	}
 	
+	// We initialize the progress bars with data
 	@Override
 	public void addCraftingToCrafters(ICrafting craft)
 	{
 		super.addCraftingToCrafters(craft);
-		craft.sendProgressBarUpdate(this, 0, this.spiralFurnace.furnaceCookTime);
-		craft.sendProgressBarUpdate(this, 1, this.spiralFurnace.furnaceBurnTime);
+		craft.sendProgressBarUpdate(this, 0, this.spiralFurnace.cookTime);
+		craft.sendProgressBarUpdate(this, 1, this.spiralFurnace.burnTime);
 		craft.sendProgressBarUpdate(this, 2, this.spiralFurnace.currentBurnTime);
 	}
 	
+	// Sends the changes per tick
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();
@@ -61,14 +66,14 @@ public class ContainerSpiralFurnace extends Container
 		{
 			ICrafting craft = (ICrafting) this.crafters.get(i);
 			
-			if(this.lastCookTime != this.spiralFurnace.furnaceCookTime)
+			if(this.lastCookTime != this.spiralFurnace.cookTime)
 			{
-				craft.sendProgressBarUpdate(this, 0, this.spiralFurnace.furnaceCookTime);
+				craft.sendProgressBarUpdate(this, 0, this.spiralFurnace.cookTime);
 			}
 			
-			if(this.lastBurnTime != this.spiralFurnace.furnaceBurnTime)
+			if(this.lastBurnTime != this.spiralFurnace.burnTime)
 			{
-				craft.sendProgressBarUpdate(this, 1, this.spiralFurnace.furnaceBurnTime);
+				craft.sendProgressBarUpdate(this, 1, this.spiralFurnace.burnTime);
 			}
 			
 			if(this.lastItemBurnTime != this.spiralFurnace.currentBurnTime)
@@ -77,8 +82,8 @@ public class ContainerSpiralFurnace extends Container
 			}
 		}
 		
-		this.lastBurnTime = this.spiralFurnace.furnaceBurnTime;
-		this.lastCookTime = this.spiralFurnace.furnaceCookTime;
+		this.lastBurnTime = this.spiralFurnace.burnTime;
+		this.lastCookTime = this.spiralFurnace.cookTime;
 		this.lastItemBurnTime = this.spiralFurnace.currentBurnTime;
 	}
 	
@@ -88,12 +93,12 @@ public class ContainerSpiralFurnace extends Container
 	{
 		if(par1 == 0)
 		{
-			this.spiralFurnace.furnaceCookTime = par2;
+			this.spiralFurnace.cookTime = par2;
 		}
 		
-		if(par1 == 11)
+		if(par1 == 1)
 		{
-			this.spiralFurnace.furnaceBurnTime = par2;
+			this.spiralFurnace.burnTime = par2;
 		}
 		
 		if(par1 == 2)
@@ -102,12 +107,14 @@ public class ContainerSpiralFurnace extends Container
 		}
 	}
 	
+	// Sets if player can interact with.. I assume to detect sneak click?
 	@Override
 	public boolean canInteractWith(EntityPlayer player) 
 	{
 		return this.spiralFurnace.isUseableByPlayer(player);
 	}
 	
+	// Allows for shift click and maybe regularly placing items in? Not sure.
 	public ItemStack transferStackInSlot(EntityPlayer player, int par2)
 	{
 		ItemStack itemStack = null;

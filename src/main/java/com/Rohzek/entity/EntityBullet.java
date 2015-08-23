@@ -81,7 +81,7 @@ public class EntityBullet extends EntityThrowable
 			setDead();
 		}
 		
-		// You can draw particles with this. The example below is the super charged bow particles
+		// You can draw trail particles with this. The example below is the super charged bow particles
 		//drawParticles("crit");
 	}
 	 

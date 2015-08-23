@@ -22,7 +22,6 @@ public class FallEvent
 	{
 	}
 	
-	// another SubscribeEvent... not sure what it does but it's related to EventHandlers. See main classes for more info? I guess?
 	@SubscribeEvent
 	public void fallingEvent(LivingHurtEvent event)
 	{

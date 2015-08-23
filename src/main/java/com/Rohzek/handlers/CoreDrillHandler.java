@@ -5,12 +5,15 @@ import java.util.Random;
 import com.Rohzek.item.SPItems;
 import com.Rohzek.lib.RefStrings;
 import com.Rohzek.player.SPExtendedPlayerStats;
+import com.Rohzek.util.LogHelper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
@@ -21,7 +24,6 @@ public class CoreDrillHandler
 	// Creates a random number generator
 	Random r = new Random();
 	
-	// Not sure whats up with SubscribeEvent. See main classes for more info~ish.
 	@SubscribeEvent
 	public void breakStone(HarvestDropsEvent event)
 	{
@@ -51,7 +53,7 @@ public class CoreDrillHandler
 								// Sorry we're heartless. Coredrills are "soulbound" so generating one blocks generation..
 								// Hope it doesn't fall in lava or someone else steals it...
 								props.setCoreDrillFound(true);
-								
+								LogHelper.log(event.harvester.getDisplayName() + " has found their core drill!");
 								props.sync((EntityPlayerMP)props.player);
 							}
 						}
@@ -67,7 +69,7 @@ public class CoreDrillHandler
 								// Sorry we're heartless. Coredrills are "soulbound" so generating one blocks generation..
 								// Hope it doesn't fall in lava or someone else steals it...
 								props.setCoreDrillFound(true);
-								
+								LogHelper.log(event.harvester.getDisplayName() + " has found their core drill!");
 								props.sync((EntityPlayerMP)props.player);
 							}
 						}

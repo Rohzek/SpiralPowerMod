@@ -24,7 +24,7 @@ public class BrokenDrill extends Item
 		// Gives unlocalized name
 		this.setUnlocalizedName("brokenDrill");
 		// Sets texture based on that name
-		this.setTextureName(RefStrings.MODID + ":brokenDrill");
+		this.setTextureName(RefStrings.RESOURCEID + "brokenDrill");
 		// Sets creative tab for it
 		this.setCreativeTab(SPCreativeTabs.itemsTab);
 		// Should be held like a tool, like the original drill it came from.

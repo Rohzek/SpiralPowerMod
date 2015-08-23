@@ -17,7 +17,7 @@ public class SimonKatana extends ItemSword
 		// Sets unlocalized name
 		this.setUnlocalizedName("simonKatana");
 		// Sets texture based on that name
-		this.setTextureName(RefStrings.MODID + ":simonKatana");
+		this.setTextureName(RefStrings.RESOURCEID + "simonKatana");
 		// Sets creative tab for it
 		this.setCreativeTab(SPCreativeTabs.toolsTab);
 	}

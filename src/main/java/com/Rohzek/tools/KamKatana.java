@@ -18,7 +18,7 @@ public class KamKatana extends ItemSword
 		// Gives unlocalized name
 		this.setUnlocalizedName("kamKatana");
 		// Sets texutre based on that name
-		this.setTextureName(RefStrings.MODID + ":kamKatana");
+		this.setTextureName(RefStrings.RESOURCEID + "kamKatana");
 		// Sets creative tab
 		this.setCreativeTab(SPCreativeTabs.toolsTab);
 	}

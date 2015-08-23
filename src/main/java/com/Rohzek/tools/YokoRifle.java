@@ -15,6 +15,7 @@ import com.Rohzek.creativetabs.SPCreativeTabs;
 import com.Rohzek.entity.EntityBullet;
 import com.Rohzek.item.SPItems;
 import com.Rohzek.lib.RefStrings;
+import com.Rohzek.util.LogHelper;
 
 // Fires on click like alpha/beta bow.. fires multiple ammo types based on a switchable mode
 // As a note: All debug checks are specified !onRemote... else it would print it once for client, once for server.. Don't need both to verify/debug
@@ -118,7 +119,7 @@ public class YokoRifle extends Item
 					{
 						if(!world.isRemote)
 						{
-							System.out.println("You're on safe mode, can't fire!");
+							LogHelper.log(player.getDisplayName() + " is on safe mode, gun can't fire!");
 						}
 					}
 				}
@@ -142,7 +143,7 @@ public class YokoRifle extends Item
 					{
 						if(!world.isRemote)
 						{
-							System.out.println("You're on safe mode, can't fire!");
+							LogHelper.log(player.getDisplayName() + " is on safe mode, gun can't fire!");
 						}
 					}
 				}
@@ -246,7 +247,7 @@ public class YokoRifle extends Item
 			{
 				if(!world.isRemote)
 				{
-					System.out.println("We're in creative mode... I shouldn't be consuming any ammo types!");
+					LogHelper.log(player.getDisplayName() + " is in creative mode... gun shouldn't be consuming any ammo types!");
 				}
 			}
 		}
@@ -258,12 +259,12 @@ public class YokoRifle extends Item
 			{
 				if(!player.capabilities.isCreativeMode)
 				{
-					System.out.println("Gun is doing ~" + getOurDamage(itemStack) + " damage");
+					LogHelper.log(player.getDisplayName() + "'s gun is doing ~" + getOurDamage(itemStack) + " damage");
 				}
 				
 				else
 				{
-					System.out.println("Gun is doing a ludacris 9999 damage!");
+					LogHelper.log(player.getDisplayName() + "'s gun is doing a ludacris 9999 damage!");
 				}
 				
 			}
@@ -379,13 +380,13 @@ public class YokoRifle extends Item
 	 public void registerIcons(IIconRegister iconRegister)
 	 {
 		 // default mode texture
-			defaultIcon = iconRegister.registerIcon(RefStrings.MODID + ":yokoRifleDefault");
+			defaultIcon = iconRegister.registerIcon(RefStrings.RESOURCEID + "yokoRifleDefault");
 		 // bullet mode texture
-			bulletIcon = iconRegister.registerIcon(RefStrings.MODID + ":yokoRifleBullet");
+			bulletIcon = iconRegister.registerIcon(RefStrings.RESOURCEID + "yokoRifleBullet");
 		 // spower mode texture
-			spowerIcon = iconRegister.registerIcon(RefStrings.MODID + ":yokoRifleSpiral");
+			spowerIcon = iconRegister.registerIcon(RefStrings.RESOURCEID + "yokoRifleSpiral");
 		 // arrow mode texture
-			arrowIcon = iconRegister.registerIcon(RefStrings.MODID + ":yokoRifleArrow");
+			arrowIcon = iconRegister.registerIcon(RefStrings.RESOURCEID + "yokoRifleArrow");
 	 }
 	 
 	 // Instead of putting this code twice below, I just made it once and call it in both.

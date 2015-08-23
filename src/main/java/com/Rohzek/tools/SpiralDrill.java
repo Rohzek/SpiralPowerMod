@@ -25,7 +25,7 @@ public class SpiralDrill extends ItemPickaxe
 		// name of item
 		this.setUnlocalizedName("spiralDrill");
 		// gives texture based on unlocalized name
-		this.setTextureName(RefStrings.MODID + ":spiralDrill");
+		this.setTextureName(RefStrings.RESOURCEID + "spiralDrill");
 		// sets creative tab
 		this.setCreativeTab(SPCreativeTabs.toolsTab);
 	}

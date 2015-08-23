@@ -95,14 +95,14 @@ public class CraftingManager
 			GameRegistry.addRecipe(new ItemStack(SPArmors.simonChest), new Object[]{"X X","XYX","XXX", 'X', Items.leather,  'Y', SPItems.spiralPowerChunk, 'Z', Items.iron_ingot});
 			GameRegistry.addRecipe(new ItemStack(SPArmors.simonLegs), new Object[]{"XYX","X X","X X", 'X', Items.leather,  'Y', SPItems.spiralPowerChunk, 'Z', Items.iron_ingot});
 			GameRegistry.addRecipe(new ItemStack(SPArmors.simonBoots), new Object[]{"X X","Y Y","X X", 'X', Items.leather,  'Y', SPItems.spiralPowerChunk, 'Z', Items.iron_ingot});
-			
 	}
 	
 	// Format: Item in, ItemStack out, Amount of EXP given
 	public static void addSmeltingRec()
 	{
 		// Smelting Recipes
-		// We're removing this but leaving it here as an example on how to make these.
+		// This is how to do vanilla recipes... I'm probably not going to be using this since I have a custom furnace but.. Eh?
+		// We'll leave how to do it for reference.
 		//GameRegistry.addSmelting(Blocks.stone, new ItemStack(SPItems.spiralDroplet), 20.0f);
 	}
 }

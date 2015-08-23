@@ -11,6 +11,7 @@ import com.Rohzek.lib.RefStrings;
 import com.Rohzek.network.PacketPipeline;
 import com.Rohzek.network.client.SyncPlayerPropsPacket;
 import com.Rohzek.spiralpowermod.MainRegistry;
+import com.Rohzek.util.LogHelper;
 
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import net.minecraft.entity.Entity;
@@ -106,8 +107,7 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 	// Blank initialization function.. not used right now
 	@Override
 	public void init(Entity entity, World world) 
-	{	
-	}
+	{}
 	
 	// Getter for Core Drill tracking
 	public boolean getCoreDrillFound()
@@ -206,10 +206,12 @@ public class SPExtendedPlayerStats implements IExtendedEntityProperties
 			PacketPipeline.sendTo(new SyncPlayerPropsPacket((EntityPlayer)playerMP), (EntityPlayerMP) playerMP);
 			
 			if(RefStrings.DEBUG)
-			{
-				System.out.println("Sending Packet to " + playerMP.getDisplayName());
-				System.out.println(playerMP.getDisplayName() + " has " + currentMana + " mana left");
-				System.out.println(playerMP.getDisplayName() + " CoreDrill Status: " + coreDrillFound);
+			{	
+				LogHelper.log("Sending Packet to " + playerMP.getDisplayName());
+				LogHelper.log("Packet information is as follows:");
+				LogHelper.log(playerMP.getDisplayName() + " has " + currentMana + " mana left");
+				LogHelper.log(playerMP.getDisplayName() + " has a maximum limit of " + maxMana + " mana");
+				LogHelper.log(playerMP.getDisplayName() + "'s CoreDrill Status: " + coreDrillFound);
 			}
 		}
 		else

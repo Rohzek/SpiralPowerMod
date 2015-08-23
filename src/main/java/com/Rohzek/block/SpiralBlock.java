@@ -20,6 +20,7 @@ public class SpiralBlock extends Block
 	private int metadata;
 	private int least_quantity;
 	private int most_quantity;
+	
 	private Item drill;
 	
 	protected SpiralBlock(Material mat, int metadata, int least_quantity, int most_quantity) 
@@ -44,7 +45,7 @@ public class SpiralBlock extends Block
 		// the "unlocalized name" of the block
 	    this.setBlockName("spiralBlock");
 	    // name for the texture
-	    this.setBlockTextureName(RefStrings.MODID + ":spiralBlock");
+	    this.setBlockTextureName(RefStrings.RESOURCEID + "spiralBlock");
 	    // creative tab it's registered to
 	    this.setCreativeTab(SPCreativeTabs.blocksTab);
 	    

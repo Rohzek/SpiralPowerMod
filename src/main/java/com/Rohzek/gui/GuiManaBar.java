@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 // This class contains a clusterfuck of things I don't quite understand and only achieved due to a tutorial. GL11 makes little sense to me.
+// We still need to be able to hide it on will/ in creative mode.
 public class GuiManaBar extends Gui
 {
 	// gets instance of minecraft
@@ -34,7 +35,6 @@ public class GuiManaBar extends Gui
 		this.mc = mc;
 	}
 
-	// Not sure how SubscribeEvent works but... It's required.
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event)
 	{

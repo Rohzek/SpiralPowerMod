@@ -6,6 +6,7 @@ import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import com.Rohzek.item.SPItems;
 import com.Rohzek.lib.RefStrings;
 import com.Rohzek.tools.SPTools;
+import com.Rohzek.util.LogHelper;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
@@ -18,16 +19,12 @@ public class SpiralDrillBreakHandler
 	@SubscribeEvent
 	public void drillBreak(PlayerDestroyItemEvent event)
 	{
-		if(RefStrings.DEBUG)
-		{
-			System.out.println(event.original.getDisplayName() + " just broke!");
-		}
 		// If the item broken, is the Spiral Drill then:
 		if(event.original.getItem() == muhDrill.getItem())
 		{
 			if(RefStrings.DEBUG)
 			{
-				System.out.println("I should be giving you back an item right now!");
+				LogHelper.log(event.entityPlayer.getDisplayName() + "'s Spiral Drill just broke. I should be returning a broken drill.");
 			}
 			// Give player a broken drill when it breaks
 			event.entityPlayer.inventory.addItemStackToInventory(new ItemStack(SPItems.brokenDrill));

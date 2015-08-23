@@ -12,21 +12,34 @@ import com.Rohzek.lib.Settings;
 public class LogHelper
 {
 	
-	private static Logger logger = Logger.getLogger(RefStrings.MODID);
+	private static Logger logger = Logger.getLogger(RefStrings.LOG);
 	
     public static void log(Level logLevel, String string)
     {
-        FMLLog.log(RefStrings.NAME, logLevel, string);
+        FMLLog.log(RefStrings.LOG, logLevel, string);
+    }
+    
+    public static void log(String string)
+    {
+        FMLLog.log(RefStrings.LOG, Level.INFO, string);
     }
 
+    // This is a normal printout but only if my debug is true.. Saves call time later
+    public static void debug(String string)
+    {
+    	if(RefStrings.DEBUG)
+    	{
+    		FMLLog.log(RefStrings.LOG, Level.INFO, string);
+    	}
+    }
+    
+    
+    
+    
+    // Not sure how the rest work but we don't need them I guess.
     public static void all(String string)
     {
         log(Level.ALL, string);
-    }
-
-    public static void debug(String string)
-    {
-        log(Level.DEBUG, string);
     }
 
     public static void error(String string)
@@ -51,7 +64,7 @@ public class LogHelper
 
     public static void trace(String string)
     {
-        if (!Settings.Debug.logTraceToInfo)
+        if (RefStrings.DEBUG)
         {
             log(Level.TRACE, string);
         }

@@ -2,6 +2,8 @@ package com.Rohzek.block;
 
 import java.util.Random;
 
+import org.apache.logging.log4j.Level;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -22,11 +24,13 @@ import net.minecraft.world.World;
 import com.Rohzek.lib.RefStrings;
 import com.Rohzek.spiralpowermod.MainRegistry;
 import com.Rohzek.tileentity.TileEntitySpiralFurnace;
+import com.Rohzek.util.LogHelper;
 
 import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+// Can hold objects like a normal furnace... Will be getiing remodeled into a custom block I think... Who knows?
 public class SpiralFurnace extends BlockContainer
 {
 	@SideOnly(Side.CLIENT)
@@ -35,61 +39,80 @@ public class SpiralFurnace extends BlockContainer
 	private IIcon front;
 	
 	private static boolean isBurning;
-	private final boolean isBurning2;
+	private final boolean isActive;
 	private final Random random = new Random();
 	
+	// We set material and hardness and resistance here.. We want them to be the same on active and inactive furnaces.
 	protected SpiralFurnace(boolean isActive) 
 	{
 		super(Material.rock);
-		isBurning2 = isActive;
+		this.isActive = isActive;
 		this.setHardness(5.0f);
 		this.setResistance(17.5f);
 	}
 
+	// blockIcon is the side texture
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register)
 	{
-		this.blockIcon = register.registerIcon(RefStrings.MODID + ":" + "spiralFurnaceSide");
-		this.front = register.registerIcon(this.isBurning2 ? RefStrings.MODID +":"+ "spiralFurnaceActive" : RefStrings.MODID +":"+ "spiralFurnaceInactive");
-		this.top = register.registerIcon(RefStrings.MODID + ":" + "spiralFurnaceTop");
+		this.blockIcon = register.registerIcon(RefStrings.RESOURCEID + "spiralFurnaceSide");
+		this.front = register.registerIcon(RefStrings.RESOURCEID + (this.isActive ? "spiralFurnaceActive" : "spiralFurnaceInactive"));
+		this.top = register.registerIcon(RefStrings.RESOURCEID + "spiralFurnaceTop");
 	}
 	
+	// This is required to return the correct texture based on the rotation
 	@Override
+	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta)
 	{
-		return side == 1 ? this.top : (side == 0 ? this.top : (side != meta ? this.blockIcon : this.front));
+		// side == 3 ? this.front then the icon never has a texture...
+		// Without Without meta == 0 it's possible to glitch a front onto two sides when placing diagonally.
+		// Vanilla code doesn't have either.. so.. no clue how vanilla furnaces work.. :/
+		return meta == 0 && side == 3 ? this.front : (side == 1 ? this.top : (side == 0 ? this.top : (side != meta ? this.blockIcon : this.front)));
 	}
 	
+	// This opens the GUI on right click, on server side.
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		player.openGui(MainRegistry.spiralpowermod, 0, world, x, y, z);
+		if(!world.isRemote)
+		{
+			player.openGui(MainRegistry.spiralpowermod, RefStrings.SPIRALOVENGUIID, world, x, y, z);
+			
+			if(RefStrings.DEBUG)
+			{
+				LogHelper.log(player.getDisplayName() + " Spiral Furnace activated GUI");
+			}
+		}
 		
 		return true;
 	}
 	
-	
-	@Override
-	public Item getItemDropped(int par1, Random rand, int par3)
-	{
-		return Item.getItemFromBlock(SPBlocks.spiralFurnace);
-	}
-	
+	// Not sure which furnace this is for, active or inactive, but we need both anyway
 	@Override
 	public Item getItem(World world, int par2, int par3, int par4)
 	{
 		return Item.getItemFromBlock(SPBlocks.spiralFurnace);
 	}
 	
-	@SideOnly(Side.CLIENT)
+	// Not sure which furnace this is for, active or inactive, but we need both anyway
 	@Override
+	public Item getItemDropped(int par1, Random rand, int par3)
+	{
+		return Item.getItemFromBlock(SPBlocks.spiralFurnace);
+	}
+	
+	// Whhen we place the block we need to find out the direction to make it face
+	@Override
+	@SideOnly(Side.CLIENT)
 	public void onBlockAdded(World world, int x, int y, int z)
 	{
 		super.onBlockAdded(world, x, y, z);
 		this.direction(world, x, y, z);
 	}
 	
+	// This calculates the direction.. I don't really understand it, it's all vanilla code copypasta
 	private void direction(World world, int x, int y, int z)
 	{
 		if(!world.isRemote)
@@ -124,6 +147,7 @@ public class SpiralFurnace extends BlockContainer
 		}
 	}
 	
+	// This gets the player that placed the block so we can rotate it to face them.
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack)
 	{
@@ -155,6 +179,7 @@ public class SpiralFurnace extends BlockContainer
 		}
 	}
 	
+	// This is how we set the block back and forth between burning and not burning.. It's not a simple texture flip.
 	public static void updateBlockState(boolean burning, World world, int x, int y, int z)
 	{
 		int dir = world.getBlockMetadata(x, y, z);
@@ -183,6 +208,7 @@ public class SpiralFurnace extends BlockContainer
 		}
 	}
 	
+	// This is what happens when we break the block
 	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
 	{
 		if(!isBurning)
@@ -237,11 +263,12 @@ public class SpiralFurnace extends BlockContainer
 		super.breakBlock(world, x, y, z, block, meta);
 	}
 	
+	// This is how we display the random fire textures while the furnace is burning.
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
 	{
-		if(this.isBurning2)
+		if(this.isActive)
 		{
 			int dir = world.getBlockMetadata(x, y, z);
 			
@@ -274,16 +301,19 @@ public class SpiralFurnace extends BlockContainer
 		}
 	}
 
+	// This is for redstone stuff.... not sure EXACTLY what it does...
     public boolean hasComparatorInputOverride()
     {
         return true;
     }
-
+    
+    // This is for redstone stuff.... not sure EXACTLY what it does...
     public int getComparatorInputOverride(World world, int par2, int par3, int par4, int par5)
     {
         return Container.calcRedstoneFromInventory((IInventory)world.getTileEntity(par2, par3, par4));
     }
 	 
+    // This actually spawns the tile entity into the world. Without it.. it'd just be a block.
 	@Override
 	public TileEntity createNewTileEntity(World world, int par2) 
 	{

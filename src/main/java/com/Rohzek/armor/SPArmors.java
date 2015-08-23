@@ -51,22 +51,22 @@ public class SPArmors
 		// Could be done differently, by setting some of these in the armor type class... but I kinda like this way.
 		
 		// Kamina Armor
-		kamGlasses = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 0).setUnlocalizedName("kamGlasses").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":kamGlasses");
-		kamChest = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 1).setUnlocalizedName("kamChest").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":kamChest");
-		kamLegs = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 2).setUnlocalizedName("kamLegs").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":kamLegs");
-		kamBoots = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 3).setUnlocalizedName("kamBoots").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":kamBoots");
+		kamGlasses = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 0).setUnlocalizedName("kamGlasses").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "kamGlasses");
+		kamChest = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 1).setUnlocalizedName("kamChest").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "kamChest");
+		kamLegs = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 2).setUnlocalizedName("kamLegs").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "kamLegs");
+		kamBoots = new KaminaArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("KaminaArmor"), 3).setUnlocalizedName("kamBoots").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "kamBoots");
 		
 		// Digger Armor
-		diggerGoggles = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 0).setUnlocalizedName("diggerGoggles").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":diggerGoggles");
-		diggerChest = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 1).setUnlocalizedName("diggerChest").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":diggerChest");
-		diggerLegs = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 2).setUnlocalizedName("diggerLegs").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":diggerLegs");
-		diggerBoots = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 3).setUnlocalizedName("diggerBoots").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":diggerBoots");
+		diggerGoggles = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 0).setUnlocalizedName("diggerGoggles").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "diggerGoggles");
+		diggerChest = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 1).setUnlocalizedName("diggerChest").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "diggerChest");
+		diggerLegs = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 2).setUnlocalizedName("diggerLegs").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "diggerLegs");
+		diggerBoots = new DiggerArmor(diggerArmorMat, MainRegistry.proxyServer.addArmor("DiggerArmor"), 3).setUnlocalizedName("diggerBoots").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "diggerBoots");
 		
 		// Simon Armor
-		simonGlasses = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 0).setUnlocalizedName("simonGlasses").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":simonGlasses");
-		simonChest = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 1).setUnlocalizedName("simonChest").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":simonChest");
-		simonLegs = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 2).setUnlocalizedName("simonLegs").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":simonLegs");
-		simonBoots = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 3).setUnlocalizedName("simonBoots").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.MODID + ":simonBoots");
+		simonGlasses = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 0).setUnlocalizedName("simonGlasses").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "simonGlasses");
+		simonChest = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 1).setUnlocalizedName("simonChest").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "simonChest");
+		simonLegs = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 2).setUnlocalizedName("simonLegs").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "simonLegs");
+		simonBoots = new SimonArmor(spiralPowerArmorMat, MainRegistry.proxyServer.addArmor("SimonArmor"), 3).setUnlocalizedName("simonBoots").setCreativeTab(SPCreativeTabs.armorTab).setTextureName(RefStrings.RESOURCEID + "simonBoots");
 		
 	}
 	

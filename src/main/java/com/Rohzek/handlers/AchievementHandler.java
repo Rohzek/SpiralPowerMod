@@ -49,5 +49,6 @@ public class AchievementHandler
 	public void onSmelting(PlayerEvent.ItemSmeltedEvent e)
 	{
 		// When you smelt X trigger achivement Y. Currently none exists but could be added later?
+		// Not sure this will work for our custom furnace and recipes... Interesting...
 	}
 }

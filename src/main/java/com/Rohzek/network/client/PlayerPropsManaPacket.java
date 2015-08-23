@@ -9,7 +9,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 
-// This class doesn't actually do anything yet.
+// This class doesn't actually do anything yet. It only exists just in case I ever decide to pack so much stuff into the extended player props class that
+// It would be too much strain on the network to sync all of it at once.. Even though technically you don't need to sync the extra data NOW every time
+// the mana changes....
 
 public class PlayerPropsManaPacket extends AbstractClientPacket<SyncPlayerPropsPacket>
 {
