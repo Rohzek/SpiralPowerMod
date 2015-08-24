@@ -20,8 +20,12 @@ public class SPBlocks
 	}
 	
 	public static Block spiralPowerBlock;
+	
 	public static Block spiralFurnace;
 	public static Block spiralFurnaceActive;
+	
+	public static Block spiralSmelter;
+	public static Block spiralSmelterActive;
 	
 	// initalizes/creates block material
 	public static void initializeBlock()

@@ -55,14 +55,14 @@ public class GuiSpiralFurnace extends GuiContainer
 		// If we're actively cooking something we want to animate the arrow and burn meter
 		if(this.furnace.isBurning())
 		{
-			int i1 = furnace.getBurnTimeRemainingScaled(45);
+			int i1 = furnace.getBurnTimeRemainingScaled(15);
 			//       Where to draw from left, fromm top        ,area for image from x, from y
-			drawTexturedModalRect(guiLeft + 10, guiTop + 57 - i1, 177, 43 - i1, 15, i1);
+			drawTexturedModalRect(guiLeft + 8, guiTop + 58 - i1, 176, 14 - i1, 14, i1);
 		}
 		
 		// This handles the progress arrow in the middle
-		int k = this.furnace.getCookProgressScaled(24);
-		drawTexturedModalRect(guiLeft + 79, guiTop + 34, 176, 43, k + 1, 60);
+		int k = this.furnace.getCookProgressScaled(18);
+		drawTexturedModalRect(guiLeft + 82, guiTop + 34, 190, 0, k + 1, 60);
 	}
 
 }
